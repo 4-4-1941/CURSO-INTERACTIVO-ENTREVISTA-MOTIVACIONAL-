@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EM - Curso Interactivo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f0f4f8;padding:20px}
+h1{color:#1B2B6B;border-left:5px solid #C8960A;padding-left:15px}
+.sub{color:#4a5b7a;margin:8px 0 25px 0}
+.modulo{background:#fff;border-radius:12px;padding:18px 22px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer}
+.modulo h2{color:#1B2B6B;font-size:1.2rem}
+.modulo p{color:#555;margin:6px 0 0 0}
+.badge{display:inline-block;padding:2px 14px;border-radius:20px;font-size:0.75rem;font-weight:bold;color:#fff;margin-bottom:8px}
+.badge.unlock{background:#C8960A}
+.badge.lock{background:#9CA3AF}
+.unidades{display:none;margin-top:14px;padding-top:14px;border-top:2px solid #eef2f7}
+.unidades.abierto{display:block}
+.unidad{background:#f8fafc;border-radius:8px;padding:12px 16px;margin:6px 0;border-left:3px solid #2A3F8F}
+.unidad h4{font-size:0.95rem;color:#1B2B6B}
+.unidad p{font-size:0.85rem;color:#666;margin:4px 0 0 0}
+</style>
+</head>
+<body>
 
+<h1>🎯 Entrevista Motivacional</h1>
+<p class="sub">Toca un módulo para ver sus unidades</p>
+
+<div id="contenedor"></div>
+
+<script>
+const datos = [
+  {
+    id: 'M1',
+    titulo: 'Bases Teóricas y Espíritu de la EM',
+    descripcion: 'Historia, PACE, OARS, Evocación',
+    unidades: ['Historia y desarrollo', 'Espíritu PACE', 'OARS avanzadas', 'Evocación'],
+    abierto: true
+  },
+  {
+    id: 'M2',
+    titulo: 'Procesos Clínicos',
+    descripcion: 'Change-talk, Sustain-talk, Planificación, Casos',
+    unidades: ['Change-talk', 'Sustain-talk', 'Planificación', 'Casos integradores'],
+    abierto: false
+  },
+  {
+    id: 'M3',
+    titulo: 'Aplicación Avanzada',
+    descripcion: 'Adolescentes, Atención primaria, Pediatría, Integración',
+    unidades: ['EM en adolescentes', 'Atención primaria', 'Salud mental pediátrica', 'Integración'],
+    abierto: false
+  },
+  {
+    id: 'M4',
+    titulo: 'Nivel Experto',
+    descripcion: 'MITI, Supervisión, Evaluación, Implementación',
+    unidades: ['MITI y fidelidad', 'Supervisión', 'Evaluación', 'Implementación'],
+    abierto: false
+  },
+  {
+    id: 'M5',
+    titulo: 'Casos y Actividades',
+    descripcion: 'Casos resueltos, Banco de actividades',
+    unidades: ['Casos resueltos', 'Banco de actividades'],
+    abierto: false
+  }
+];
+
+const contenedor = document.getElementById('contenedor');
+
+datos.forEach((mod, i) => {
+  const div = document.createElement('div');
+  div.className = 'modulo';
+  
+  const badge = document.createElement('span');
+  badge.className = `badge ${mod.abierto ? 'unlock' : 'lock'}`;
+  badge.textContent = mod.abierto ? '✓ Desbloqueado' : '🔒 Bloqueado';
+  
+  const titulo = document.createElement('h2');
+  titulo.textContent = `${mod.id} · ${mod.titulo}`;
+  
+  const desc = document.createElement('p');
+  desc.textContent = mod.descripcion;
+  
+  const unDiv = document.createElement('div');
+  unDiv.className = 'unidades';
+  
+  mod.unidades.forEach(u => {
+    const item = document.createElement('div');
+    item.className = 'unidad';
+    item.innerHTML = `<h4>📘 ${u}</h4><p>Contenido completo de esta unidad con teoría, referencias y actividades.</p>`;
+    unDiv.appendChild(item);
+  });
+  
+  div.appendChild(badge);
+  div.appendChild(titulo);
+  div.appendChild(desc);
+  div.appendChild(unDiv);
+  
+  div.onclick = function() {
+    if (!mod.abierto) {
+      alert('Completa el módulo anterior para desbloquear este.');
+      return;
+    }
+    const u = this.querySelector('.unidades');
+    u.classList.toggle('abierto');
+  };
+  
+  contenedor.appendChild(div);
+});
+</script>
+
+<p style="margin-top:30px;color:#888;font-size:0.85rem;text-align:center">Completa el Módulo 1 para desbloquear los siguientes.</p>
+
+</body>
+  </html>
