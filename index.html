@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EM - Curso Interactivo</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f0f4f8;padding:20px}
+body{font-family:Arial,sans-serif;background:#f0f4f8;padding:20px;max-width:800px;margin:0 auto}
 h1{color:#1B2B6B;border-left:5px solid #C8960A;padding-left:15px}
 .sub{color:#4a5b7a;margin:8px 0 25px 0}
-.modulo{background:#fff;border-radius:12px;padding:18px 22px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer}
+.modulo{background:#fff;border-radius:12px;padding:18px 22px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:0.2s}
+.modulo:active{transform:scale(0.98)}
 .modulo h2{color:#1B2B6B;font-size:1.2rem}
 .modulo p{color:#555;margin:6px 0 0 0}
 .badge{display:inline-block;padding:2px 14px;border-radius:20px;font-size:0.75rem;font-weight:bold;color:#fff;margin-bottom:8px}
@@ -70,16 +71,16 @@ const datos = [
 
 const contenedor = document.getElementById('contenedor');
 
-datos.forEach((mod, i) => {
+datos.forEach(function(mod) {
   const div = document.createElement('div');
   div.className = 'modulo';
   
   const badge = document.createElement('span');
-  badge.className = `badge ${mod.abierto ? 'unlock' : 'lock'}`;
+  badge.className = 'badge ' + (mod.abierto ? 'unlock' : 'lock');
   badge.textContent = mod.abierto ? '✓ Desbloqueado' : '🔒 Bloqueado';
   
   const titulo = document.createElement('h2');
-  titulo.textContent = `${mod.id} · ${mod.titulo}`;
+  titulo.textContent = mod.id + ' · ' + mod.titulo;
   
   const desc = document.createElement('p');
   desc.textContent = mod.descripcion;
@@ -87,10 +88,15 @@ datos.forEach((mod, i) => {
   const unDiv = document.createElement('div');
   unDiv.className = 'unidades';
   
-  mod.unidades.forEach(u => {
+  mod.unidades.forEach(function(u) {
     const item = document.createElement('div');
     item.className = 'unidad';
-    item.innerHTML = `<h4>📘 ${u}</h4><p>Contenido completo de esta unidad con teoría, referencias y actividades.</p>`;
+    const h4 = document.createElement('h4');
+    h4.textContent = '📘 ' + u;
+    const p = document.createElement('p');
+    p.textContent = 'Contenido detallado de esta unidad.';
+    item.appendChild(h4);
+    item.appendChild(p);
     unDiv.appendChild(item);
   });
   
@@ -104,8 +110,12 @@ datos.forEach((mod, i) => {
       alert('Completa el módulo anterior para desbloquear este.');
       return;
     }
-    const u = this.querySelector('.unidades');
-    u.classList.toggle('abierto');
+    var u = this.querySelector('.unidades');
+    if (u.classList.contains('abierto')) {
+      u.classList.remove('abierto');
+    } else {
+      u.classList.add('abierto');
+    }
   };
   
   contenedor.appendChild(div);
@@ -115,4 +125,4 @@ datos.forEach((mod, i) => {
 <p style="margin-top:30px;color:#888;font-size:0.85rem;text-align:center">Completa el Módulo 1 para desbloquear los siguientes.</p>
 
 </body>
-  </html>
+</html>
