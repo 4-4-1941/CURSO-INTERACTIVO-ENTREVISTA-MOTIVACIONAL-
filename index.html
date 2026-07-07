@@ -3,126 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EM - Curso Interactivo</title>
+<title>EM Capacitación · Programa Interactivo</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f0f4f8;padding:20px;max-width:800px;margin:0 auto}
-h1{color:#1B2B6B;border-left:5px solid #C8960A;padding-left:15px}
-.sub{color:#4a5b7a;margin:8px 0 25px 0}
-.modulo{background:#fff;border-radius:12px;padding:18px 22px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:0.2s}
-.modulo:active{transform:scale(0.98)}
-.modulo h2{color:#1B2B6B;font-size:1.2rem}
-.modulo p{color:#555;margin:6px 0 0 0}
-.badge{display:inline-block;padding:2px 14px;border-radius:20px;font-size:0.75rem;font-weight:bold;color:#fff;margin-bottom:8px}
-.badge.unlock{background:#C8960A}
-.badge.lock{background:#9CA3AF}
-.unidades{display:none;margin-top:14px;padding-top:14px;border-top:2px solid #eef2f7}
-.unidades.abierto{display:block}
-.unidad{background:#f8fafc;border-radius:8px;padding:12px 16px;margin:6px 0;border-left:3px solid #2A3F8F}
-.unidad h4{font-size:0.95rem;color:#1B2B6B}
-.unidad p{font-size:0.85rem;color:#666;margin:4px 0 0 0}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--cobalt:#1B2B6B;--cobalt-mid:#2A3F8F;--cobalt-pale:#EEF1FB;--amber:#C8960A;--amber-bg:#FBF4DC;--ink:#111827;--graphite:#4B5563;--muted:#9CA3AF;--border:#E5E7EB;--mist:#F9FAFB;--white:#FFF;--success:#065F46;--success-bg:#ECFDF5;--sidebar-w:300px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--mist);color:var(--ink);display:flex;min-height:100vh;font-size:15px;line-height:1.6}
+#sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);background:var(--cobalt);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;transition:transform .3s}
+.sidebar-brand{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.brand-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:6px}
+.brand-title{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;line-height:1.3}
+.sidebar-progress{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.prog-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px}
+.prog-bar-track{background:rgba(255,255,255,0.15);border-radius:4px;height:4px;overflow:hidden}
+.prog-bar-fill{background:var(--amber);height:100%;border-radius:4px;transition:width .5s}
+.prog-text{font-size:11px;color:rgba(255,255,255,0.6);margin-top:6px}
+.prog-text span{color:#fff;font-weight:600}
+.sidebar-nav{flex:1;padding:12px 0}
+.module-group{margin-bottom:4px}
+.module-btn{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:0;border:0;cursor:pointer;text-align:left;transition:background .15s}
+.module-btn:hover{background:rgba(255,255,255,0.06)}
+.module-btn.active{background:rgba(255,255,255,0.1)}
+.mod-dot{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.mod-info{flex:1}
+.mod-name{font-size:12px;font-weight:600;color:#fff;line-height:1.3}
+.mod-status{font-size:10px;color:rgba(255,255,255,0.45);margin-top:1px}
+.mod-lock{font-size:13px;opacity:.4}
+.unit-list-sidebar{display:none;padding:4px 0 8px 58px}
+.unit-list-sidebar.open{display:block}
+.unit-btn-sidebar{display:flex;align-items:center;gap:8px;width:100%;background:0;border:0;padding:6px 16px 6px 0;cursor:pointer;text-align:left;border-radius:6px;transition:background .15s}
+.unit-btn-sidebar:hover{background:rgba(255,255,255,0.07)}
+.unit-btn-sidebar.active{background:rgba(255,255,255,0.12)}
+.unit-check{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;transition:all .2s}
+.unit-check.done{background:var(--amber);border-color:var(--amber);color:#fff}
+.unit-text-sb{font-size:11.5px;color:rgba(255,255,255,0.65);line-height:1.35}
+.unit-btn-sidebar.active .unit-text-sb{color:#fff}
+#main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-breadcrumb{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.topbar-breadcrumb strong{color:var(--ink)}
+.topbar-actions{display:flex;gap:10px}
+.btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:0;transition:all .15s;font-family:'Inter',sans-serif}
+.btn-ghost{background:var(--mist);color:var(--graphite);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--border)}
+.btn-primary{background:var(--cobalt);color:#fff}
+.btn-primary:hover{background:var(--cobalt-mid)}
+#content{flex:1;padding:48px 56px;max-width:900px}
+.module-cover{background:var(--cobalt);color:#fff;border-radius:16px;padding:48px;margin-bottom:40px;position:relative;overflow:hidden}
+.module-cover::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,150,10,0.2) 0%,transparent 70%)}
+.cover-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:12px}
+.cover-title{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;line-height:1.2;margin-bottom:16px}
+.cover-desc{font-size:15px;color:rgba(255,255,255,0.75);max-width:600px;line-height:1.7;margin-bottom:28px}
+.cover-stats{display:flex;gap:32px;flex-wrap:wrap}
+.cstat-val{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--amber)}
+.cstat-lbl{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.5px}
+.unit-content{display:none}
+.unit-content.active{display:block}
+.unit-header{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid var(--border)}
+.unit-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:10px}
+.unit-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:10px}
+.unit-intro{font-size:15.5px;color:var(--graphite);line-height:1.75;font-style:italic;border-left:3px solid var(--amber);padding-left:16px}
+.content-block{margin-bottom:32px}
+.block-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--cobalt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.block-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.content-block p{color:var(--graphite);line-height:1.8;margin-bottom:12px;font-size:15px}
+.content-block p:last-child{margin-bottom:0}
+.content-block strong{color:var(--ink);font-weight:600}
+.key-concept{background:var(--cobalt-pale);border-left:3px solid var(--cobalt);border-radius:0 8px 8px 0;padding:16px 20px;margin:16px 0;font-size:14.5px;color:var(--ink);line-height:1.65}
+.key-concept .kc-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cobalt);font-weight:700;margin-bottom:6px}
+.evidence-box{background:var(--amber-bg);border:1px solid #E8C840;border-radius:10px;padding:18px 20px;margin:20px 0}
+.ev-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:10px}
+.ev-item{font-size:13.5px;color:var(--graphite);padding:6px 0;border-bottom:1px solid rgba(200,150,10,0.2);line-height:1.55}
+.ev-item:last-child{border-bottom:0}
+.data-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:16px 0}
+.data-table th{background:var(--cobalt);color:#fff;text-align:left;padding:10px 14px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;font-family:'Space Grotesk',sans-serif}
+.data-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--graphite);vertical-align:top;line-height:1.5}
+.data-table tr:nth-child(even) td{background:var(--cobalt-pale)}
+.reflection-box{background:var(--success-bg);border:1px solid #A7F3D0;border-radius:10px;padding:20px 24px;margin-top:28px}
+.refl-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--success);font-weight:700;margin-bottom:12px}
+.refl-question{font-size:15px;color:var(--ink);font-weight:500;margin-bottom:12px;line-height:1.55}
+.refl-textarea{width:100%;min-height:100px;border:1px solid #A7F3D0;border-radius:8px;padding:12px;font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);resize:vertical;background:#fff;outline:0;transition:border-color .2s}
+.refl-textarea:focus{border-color:var(--success)}
+.unit-nav{display:flex;justify-content:space-between;align-items:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+.mark-done-btn{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--success-bg);color:var(--success);border:1.5px solid #A7F3D0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+.mark-done-btn:hover{background:#D1FAE5}
+.mark-done-btn.done{background:var(--success);color:#fff;border-color:var(--success)}
+.locked-module{text-align:center;padding:80px 40px;color:var(--muted)}
+.lock-icon{font-size:48px;margin-bottom:20px;opacity:.4}
+.locked-module h3{font-family:'Space Grotesk',sans-serif;font-size:20px;color:var(--graphite);margin-bottom:10px}
+.locked-module p{font-size:14px;max-width:400px;margin:0 auto}
+.menu-toggle{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--cobalt);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:18px;cursor:pointer}
+@media(max-width:768px){#sidebar{transform:translateX(-100%)}#sidebar.open{transform:translateX(0)}#main{margin-left:0}.menu-toggle{display:block}#content{padding:24px 20px}.topbar{padding:14px 20px 14px 60px}}
+.content-list{list-style:none;margin:12px 0}
+.content-list li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:14.5px;color:var(--graphite);line-height:1.5}
+.content-list li:last-child{border-bottom:0}
+.content-list li::before{content:'▸';color:var(--amber);flex-shrink:0;font-size:12px;padding-top:2px}
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:99}
+#overlay.show{display:block}
 </style>
 </head>
 <body>
 
-<h1>🎯 Entrevista Motivacional</h1>
-<p class="sub">Toca un módulo para ver sus unidades</p>
+<button class="menu-toggle" id="menuToggle">☰</button>
+<div id="overlay"></div>
 
-<div id="contenedor"></div>
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-eyebrow">Programa de Formación</div>
+    <div class="brand-title">Entrevista Motivacional:<br>De Aprendiz a Experto</div>
+  </div>
+  <div class="sidebar-progress">
+    <div class="prog-label">Progreso general</div>
+    <div class="prog-bar-track"><div class="prog-bar-fill" id="globalProgBar" style="width:0%"></div></div>
+    <div class="prog-text"><span id="globalProgText">0</span> de 18 unidades completadas</div>
+  </div>
+  <div class="sidebar-nav" id="sidebarNav"></div>
+</nav>
+
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb" id="breadcrumb"><span>Programa EM</span> <span>›</span> <strong>Selecciona un módulo</strong></div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" onclick="navigate(-1)">← Anterior</button>
+      <button class="btn btn-primary" onclick="navigate(1)">Siguiente →</button>
+    </div>
+  </div>
+  <div id="content">
+    <div id="welcomeScreen">
+      <div class="module-cover">
+        <div class="cover-eyebrow">Plataforma Interactiva · MINT · MITI 4.2</div>
+        <div class="cover-title">Bienvenido al Programa de<br>Entrevista Motivacional</div>
+        <div class="cover-desc">Formación académica de nivel posgrado para psicólogos clínicos y formadores. Basado en Miller & Rollnick (2012, 3.ª ed.) con estándares internacionales MINT y codificación MITI 4.2.</div>
+        <div class="cover-stats">
+          <div class="cstat"><div class="cstat-val">5</div><div class="cstat-lbl">Módulos</div></div>
+          <div class="cstat"><div class="cstat-val">160h</div><div class="cstat-lbl">Académicas</div></div>
+          <div class="cstat"><div class="cstat-val">18</div><div class="cstat-lbl">Unidades</div></div>
+          <div class="cstat"><div class="cstat-val">MITI 4.2</div><div class="cstat-lbl">Estándar</div></div>
+        </div>
+      </div>
+      <p style="color:var(--graphite);font-size:15px">Selecciona <strong>Módulo 1</strong> en el panel lateral para comenzar la formación.</p>
+    </div>
+    <div id="dynamicContent" style="display:none"></div>
+  </div>
+</div>
 
 <script>
-const datos = [
+// ============================================================
+// DATOS COMPLETOS - TODOS LOS MÓDULOS DESBLOQUEADOS
+// ============================================================
+
+const MODULES = [
   {
     id: 'M1',
-    titulo: 'Bases Teóricas y Espíritu de la EM',
-    descripcion: 'Historia, PACE, OARS, Evocación',
-    unidades: ['Historia y desarrollo', 'Espíritu PACE', 'OARS avanzadas', 'Evocación'],
-    abierto: true
+    color: '#1B2B6B',
+    title: 'Bases Teóricas y Espíritu de la EM',
+    level: 'Nivel Aprendiz · Fundamentos',
+    hours: 32,
+    unlocked: true,
+    units: [
+      { id: '1.1', title: 'Historia y desarrollo de la EM', subtitle: 'Origen y evolución del método', done: false, content: `<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.1</div><div class="unit-title">Historia y desarrollo de la EM</div><div class="unit-intro">La EM no emergió de una teoría a priori, sino de la observación clínica de qué conductas del terapeuta producían cambio.</div></div><div class="content-block"><div class="block-label">Origen</div><p>Descrita por <strong>William R. Miller</strong> en 1983. El hallazgo fundacional fue que la confrontación aumentaba la resistencia, mientras que un estilo empático y evocador generaba más discurso de cambio.</p><div class="key-concept"><div class="kc-label">Hallazgo clave</div>Miller et al. (1988): terapeutas con mayor empatía reflexiva lograban mejores resultados que los confrontativos.</div></div><div class="content-block"><div class="block-label">Línea de tiempo</div><table class="data-table"><thead><tr><th>Año</th><th>Hito</th></tr></thead><tbody><tr><td><strong>1983</strong></td><td>Artículo fundacional de Miller</td></tr><tr><td><strong>1991</strong></td><td>1.ª edición con Rollnick</td></tr><tr><td><strong>2012</strong></td><td>3.ª edición: modelo de 4 procesos</td></tr></tbody></table></div><div class="evidence-box"><div class="ev-label">📚 Referencias</div><div class="ev-item">Miller, W. R., & Rollnick, S. (2013). <em>Motivational Interviewing: Helping people change</em> (3rd ed.). Guilford Press.</div></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">¿Qué implicación clínica tiene el hallazgo de que la confrontación aumenta la resistencia?</div><textarea class="refl-textarea" placeholder="Escribe tu reflexión..."></textarea></div>` },
+      { id: '1.2', title: 'Espíritu de la EM (PACE)', subtitle: 'Colaboración, Aceptación, Compasión, Evocación', done: false, content: `<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.2</div><div class="unit-title">Espíritu de la EM: PACE</div><div class="unit-intro">El espíritu no es un adorno; es la condición de posibilidad de la técnica. Sin él, las herramientas se vuelven vacías.</div></div><div class="content-block"><div class="block-label">Los cuatro pilares</div><ul class="content-list"><li><strong>Colaboración:</strong> trabajar con, no hacer a.</li><li><strong>Aceptación:</strong> respeto incondicional y validación.</li><li><strong>Compasión:</strong> búsqueda activa del bienestar del paciente.</li><li><strong>Evocación:</strong> extraer la motivación interna, no imponerla.</li></ul></div><div class="evidence-box"><div class="ev-label">📚 Referencias</div><div class="ev-item">Miller & Rollnick (2013). Capítulo 2: El espíritu de la EM.</div></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">Redacta un diálogo breve donde se note colaboración sin imposición.</div><textarea class="refl-textarea" placeholder="Escribe tu diálogo..."></textarea></div>` },
+      { id: '1.3', title: 'OARS avanzadas', subtitle: 'Preguntas abiertas, afirmaciones, reflejos, resúmenes', done: false, content: `<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.3</div><div class="unit-title">OARS avanzadas</div><div class="unit-intro">Las OARS son la base de la comunicación en EM. Su valor depende de la intención clínica y la orientación hacia el cambio.</div></div><div class="content-block"><div class="block-label">Microhabilidades</div><table class="data-table"><thead><tr><th>Habilidad</th><th>Uso básico</th><th>Uso avanzado</th></tr></thead><tbody><tr><td><strong>Preguntas abiertas</strong></td><td>Invitan a hablar</td><td>Exploran valores y discrepancias</td></tr><tr><td><strong>Afirmaciones</strong></td><td>Reconocen esfuerzo</td><td>Refuerzan autoeficacia</td></tr><tr><td><strong>Reflejos</strong></td><td>Parafrasean contenido</td><td>Amplían y orientan al cambio</td></tr><tr><td><strong>Resúmenes</strong></td><td>Cierran temas</td><td>Seleccionan change-talk</td></tr></tbody></table></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">Transforma una frase de paciente en: reflejo simple, reflejo complejo y pregunta evocadora.</div><textarea class="refl-textarea" placeholder="Escribe tu ejercicio..."></textarea></div>` },
+      { id: '1.4', title: 'Evocación del discurso de cambio', subtitle: 'Change-talk, escalas y preguntas evocadoras', done: false, content: `<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.4</div><div class="unit-title">Evocación del discurso de cambio</div><div class="unit-intro">Evocar no es persuadir. Es crear condiciones para que la persona formule por sí misma sus razones para el cambio.</div></div><div class="content-block"><div class="block-label">Tipos de change-talk</div><ul class="content-list"><li><strong>Deseo:</strong> "Quisiera sentirme mejor."</li><li><strong>Capacidad:</strong> "Creo que sí podría hacerlo."</li><li><strong>Razones:</strong> "Así no perderé a mi familia."</li><li><strong>Necesidad:</strong> "Tengo que hacer algo ya."</li><li><strong>Compromiso:</strong> "Mañana llamaré al centro."</li></ul></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">Escribe tres preguntas evocadoras: una de deseo, una de capacidad y una de razones.</div><textarea class="refl-textarea" placeholder="Escribe tus preguntas..."></textarea></div>` }
+    ]
   },
   {
     id: 'M2',
-    titulo: 'Procesos Clínicos',
-    descripcion: 'Change-talk, Sustain-talk, Planificación, Casos',
-    unidades: ['Change-talk', 'Sustain-talk', 'Planificación', 'Casos integradores'],
-    abierto: false
-  },
-  {
-    id: 'M3',
-    titulo: 'Aplicación Avanzada',
-    descripcion: 'Adolescentes, Atención primaria, Pediatría, Integración',
-    unidades: ['EM en adolescentes', 'Atención primaria', 'Salud mental pediátrica', 'Integración'],
-    abierto: false
-  },
-  {
-    id: 'M4',
-    titulo: 'Nivel Experto',
-    descripcion: 'MITI, Supervisión, Evaluación, Implementación',
-    unidades: ['MITI y fidelidad', 'Supervisión', 'Evaluación', 'Implementación'],
-    abierto: false
-  },
-  {
-    id: 'M5',
-    titulo: 'Casos y Actividades',
-    descripcion: 'Casos resueltos, Banco de actividades',
-    unidades: ['Casos resueltos', 'Banco de actividades'],
-    abierto: false
-  }
-];
-
-const contenedor = document.getElementById('contenedor');
-
-datos.forEach(function(mod) {
-  const div = document.createElement('div');
-  div.className = 'modulo';
-  
-  const badge = document.createElement('span');
-  badge.className = 'badge ' + (mod.abierto ? 'unlock' : 'lock');
-  badge.textContent = mod.abierto ? '✓ Desbloqueado' : '🔒 Bloqueado';
-  
-  const titulo = document.createElement('h2');
-  titulo.textContent = mod.id + ' · ' + mod.titulo;
-  
-  const desc = document.createElement('p');
-  desc.textContent = mod.descripcion;
-  
-  const unDiv = document.createElement('div');
-  unDiv.className = 'unidades';
-  
-  mod.unidades.forEach(function(u) {
-    const item = document.createElement('div');
-    item.className = 'unidad';
-    const h4 = document.createElement('h4');
-    h4.textContent = '📘 ' + u;
-    const p = document.createElement('p');
-    p.textContent = 'Contenido detallado de esta unidad.';
-    item.appendChild(h4);
-    item.appendChild(p);
-    unDiv.appendChild(item);
-  });
-  
-  div.appendChild(badge);
-  div.appendChild(titulo);
-  div.appendChild(desc);
-  div.appendChild(unDiv);
-  
-  div.onclick = function() {
-    if (!mod.abierto) {
-      alert('Completa el módulo anterior para desbloquear este.');
-      return;
-    }
-    var u = this.querySelector('.unidades');
-    if (u.classList.contains('abierto')) {
-      u.classList.remove('abierto');
-    } else {
-      u.classList.add('abierto');
-    }
-  };
-  
-  contenedor.appendChild(div);
-});
-</script>
-
-<p style="margin-top:30px;color:#888;font-size:0.85rem;text-align:center">Completa el Módulo 1 para desbloquear los siguientes.</p>
-
-</body>
-</html>
+    color: '#2A3F8F',
+    title: 'Procesos Clínicos de la EM',
+    level: 'Nivel Intermedio · Aplicación',
+    hours: 40,
+    unlocked: true,
+    units: [
+      { id: '2.1', title: 'Change-talk', subtitle: 'Identificar y fortalecer el lenguaje de cambio', done: false, content: `<div class="unit-header"><div class="unit-eyebrow">Módulo 2 · Unidad 2.1</div><div class="unit-title">Change-talk</div><div class="unit-intro">El change-talk incluye deseo, capacidad, razones, necesidad, compromiso y activación. Su presencia orienta la conversación hacia el cambio.</div></div><div class="content-block"><p>El terapeuta debe aprender a reconocer y reforzar el change-talk mediante reflejos selectivos y preguntas evocadoras. <strong>No se trata de convencer, sino de hacer visible lo que el paciente ya está diciendo.</strong></p></div><div class="evidence-box"><div class="ev-label">📚 Referencias</div><div class="ev-item">Apodaca, T. R., & Longabaugh, R. (2009). Mechanisms of change in motivational interviewing. <em>Clinical Psychology Review, 29</em>(3), 274–286.</div></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">Reescribe una frase ambivalente para convertirla en una conversación que aumente el change-talk.</div><textarea class="refl-textarea" placeholder="Escribe tu respuesta..."></textarea></div>` },
+      { id: '2.2', title: 'Sustain-talk y discordancia', subtitle: 'Manejo de la resistencia y la tensión relacional', done: false, content: `<div class="unit-header"><div class="unit-eyebrow">Módulo 2 · Unidad 2.2</div><div class="unit-title">Sustain-talk y discordancia</div><div class="unit-intro">Sustain-talk es lenguaje que favorece el status quo; la discordancia aparece cuando la relación se tensa. La respuesta debe ser estratégica, no confrontativa.</div></div><div class="content-block"><p>El clínico debe responder al sustain-talk con reflejos complejos que validen la ambivalencia sin discutir, y a la discordancia con cambios de tema, afirmaciones o
