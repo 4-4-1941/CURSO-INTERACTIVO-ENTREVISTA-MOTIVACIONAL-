@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EM Capacitación · Programa Interactivo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  --cobalt: #1B2B6B;
+  --cobalt-mid: #2A3F8F;
+  --cobalt-pale: #EEF1FB;
+  --amber: #C8960A;
+  --amber-bg: #FBF4DC;
+  --ink: #111827;
+  --graphite: #4B5563;
+  --muted: #9CA3AF;
+  --border: #E5E7EB;
+  --mist: #F9FAFB;
+  --white: #FFFFFF;
+  --success: #065F46;
+  --success-bg: #ECFDF5;
+  --sidebar-w: 300px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--mist);
+  color: var(--ink);
+  display: flex;
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--cobalt);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+  transition: transform 0.3s;
+}
+
+.sidebar-brand {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.brand-eyebrow {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.brand-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.3;
+}
+
+.sidebar-progress {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.prog-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 8px;
+}
+.prog-bar-track {
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  height: 4px;
+  overflow: hidden;
+}
+.prog-bar-fill {
+  background: var(--amber);
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+.prog-text {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 6px;
+}
+.prog-text span { color: white; font-weight: 600; }
+
+.sidebar-nav { flex: 1; padding: 12px 0; }
+
+.module-group { margin-bottom: 4px; }
+
+.module-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.module-btn:hover { background: rgba(255,255,255,0.06); }
+.module-btn.active { background: rgba(255,255,255,0.1); }
+
+.mod-dot {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+.mod-info { flex: 1; }
+.mod-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.3;
+}
+.mod-status {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 1px;
+}
+.mod-lock { font-size: 13px; opacity: 0.4; }
+
+.unit-list-sidebar {
+  display: none;
+  padding: 4px 0 8px 58px;
+}
+.unit-list-sidebar.open { display: block; }
+
+.unit-btn-sidebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 6px 16px 6px 0;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.unit-btn-sidebar:hover { background: rgba(255,255,255,0.07); }
+.unit-btn-sidebar.active { background: rgba(255,255,255,0.12); }
+
+.unit-check {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  color: transparent;
+  transition: all 0.2s;
+}
+.unit-check.done {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: white;
+}
+.unit-text-sb {
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.35;
+}
+.unit-btn-sidebar.active .unit-text-sb { color: white; }
+
+/* ── MAIN ── */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* TOP BAR */
+.topbar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.topbar-breadcrumb {
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.topbar-breadcrumb strong { color: var(--ink); }
+.topbar-actions { display: flex; gap: 10px; }
+
+.btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.btn-ghost {
+  background: var(--mist);
+  color: var(--graphite);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: var(--border); }
+.btn-primary {
+  background: var(--cobalt);
+  color: white;
+}
+.btn-primary:hover { background: var(--cobalt-mid); }
+.btn-amber {
+  background: var(--amber);
+  color: white;
+}
+.btn-amber:hover { opacity: 0.9; }
+
+/* CONTENT AREA */
+#content {
+  flex: 1;
+  padding: 48px 56px;
+  max-width: 900px;
+}
+
+/* MODULE COVER */
+.module-cover {
+  background: var(--cobalt);
+  color: white;
+  border-radius: 16px;
+  padding: 48px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.module-cover::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,150,10,0.2) 0%, transparent 70%);
+}
+.cover-eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.cover-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.cover-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.cover-stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.cstat { }
+.cstat-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--amber);
+}
+.cstat-lbl {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* UNIT CONTENT */
+.unit-content { display: none; }
+.unit-content.active { display: block; }
+
+.unit-header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--border);
+}
+.unit-eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.unit-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.unit-intro {
+  font-size: 15.5px;
+  color: var(--graphite);
+  line-height: 1.75;
+  font-style: italic;
+  border-left: 3px solid var(--amber);
+  padding-left: 16px;
+}
+
+/* CONTENT BLOCKS */
+.content-block {
+  margin-bottom: 32px;
+}
+.block-label {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--cobalt);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.block-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.content-block p {
+  color: var(--graphite);
+  line-height: 1.8;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+.content-block p:last-child { margin-bottom: 0; }
+
+.content-block strong { color: var(--ink); font-weight: 600; }
+
+.key-concept {
+  background: var(--cobalt-pale);
+  border-left: 3px solid var(--cobalt);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 14.5px;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.key-concept .kc-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cobalt);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.evidence-box {
+  background: var(--amber-bg);
+  border: 1px solid #E8C840;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+.ev-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.ev-item {
+  font-size: 13.5px;
+  color: var(--graphite);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(200,150,10,0.2);
+  line-height: 1.55;
+}
+.ev-item:last-child { border-bottom: none; }
+.ev-item cite { font-style: normal; font-weight: 600; color: var(--ink); }
+
+/* TABLE */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 16px 0;
+}
+.data-table th {
+  background: var(--cobalt);
+  color: white;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--graphite);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.data-table tr:nth-child(even) td { background: var(--cobalt-pale); }
+
+/* REFLECTION */
+.reflection-box {
+  background: var(--success-bg);
+  border: 1px solid #A7F3D0;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 28px;
+}
+.refl-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--success);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.refl-question {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 500;
+  margin-bottom: 12px;
+  line-height: 1.55;
+}
+.refl-textarea {
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid #A7F3D0;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  resize: vertical;
+  background: white;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.refl-textarea:focus { border-color: var(--success); }
+
+/* UNIT NAV */
+.unit-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.mark-done-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1.5px solid #A7F3D0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.mark-done-btn:hover { background: #D1FAE5; }
+.mark-done-btn.done {
+  background: var(--success);
+  color: white;
+  border-color: var(--success);
+}
+
+/* MODULE OVERVIEW PAGE */
+.overview-page { display: none; }
+.overview-page.active { display: block; }
+
+.units-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 28px;
+}
+.unit-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.unit-card:hover {
+  border-color: var(--cobalt);
+  box-shadow: 0 4px 12px rgba(27,43,107,0.1);
+  transform: translateY(-1px);
+}
+.unit-card-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cobalt);
+  min-width: 28px;
+}
+.unit-card-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.unit-card-info p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.unit-card.done { border-color: #A7F3D0; background: var(--success-bg); }
+.unit-card.done .unit-card-num { color: var(--success); }
+
+/* LOCKED MODULE */
+.locked-module {
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--muted);
+}
+.lock-icon { font-size: 48px; margin-bottom: 20px; opacity: 0.4; }
+.locked-module h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  color: var(--graphite);
+  margin-bottom: 10px;
+}
+.locked-module p { font-size: 14px; max-width: 400px; margin: 0 auto; }
+
+/* MENU TOGGLE */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 14px; left: 14px;
+  z-index: 200;
+  background: var(--cobalt);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  .menu-toggle { display: block; }
+  #content { padding: 24px 20px; }
+  .topbar { padding: 14px 20px 14px 60px; }
+  .units-grid { grid-template-columns: 1fr; }
+  .cover-title { font-size: 24px; }
+}
+
+/* LIST STYLES in content */
+.content-list {
+  list-style: none;
+  margin: 12px 0;
+}
+.content-list li {
+  display: flex;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14.5px;
+  color: var(--graphite);
+  line-height: 1.5;
+}
+.content-list li:last-child { border-bottom: none; }
+.content-list li::before {
+  content: '▸';
+  color: var(--amber);
+  flex-shrink: 0;
+  font-size: 12px;
+  padding-top: 2px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--cobalt-pale);
+  color: var(--cobalt);
+  margin: 2px;
+}
+
+/* Overlay for mobile sidebar */
+#overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 99;
+}
+#overlay.show { display: block; }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle">☰</button>
+<div id="overlay"></div>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-eyebrow">Programa de Formación</div>
+    <div class="brand-title">Entrevista Motivacional:<br>De Aprendiz a Experto</div>
+  </div>
+
+  <div class="sidebar-progress">
+    <div class="prog-label">Progreso general</div>
+    <div class="prog-bar-track"><div class="prog-bar-fill" id="globalProgBar" style="width:0%"></div></div>
+    <div class="prog-text"><span id="globalProgText">0</span> de 8 unidades completadas</div>
+  </div>
+
+  <div class="sidebar-nav" id="sidebarNav">
+    <!-- JS generado -->
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb" id="breadcrumb">
+      <span>Programa EM</span> <span>›</span> <strong>Selecciona un módulo</strong>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" id="btnPrev" onclick="navigate(-1)">← Anterior</button>
+      <button class="btn btn-primary" id="btnNext" onclick="navigate(1)">Siguiente →</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <!-- Pantalla de bienvenida -->
+    <div id="welcomeScreen">
+      <div class="module-cover">
+        <div class="cover-eyebrow">Plataforma Interactiva · MINT · MITI 4.2</div>
+        <div class="cover-title">Bienvenido al Programa de<br>Entrevista Motivacional</div>
+        <div class="cover-desc">Formación académica de nivel posgrado para psicólogos clínicos y formadores. Basado en Miller & Rollnick (2012, 3.ª ed.) con estándares internacionales MINT y codificación MITI 4.2.</div>
+        <div class="cover-stats">
+          <div class="cstat"><div class="cstat-val">5</div><div class="cstat-lbl">Módulos</div></div>
+          <div class="cstat"><div class="cstat-val">160h</div><div class="cstat-lbl">Académicas</div></div>
+          <div class="cstat"><div class="cstat-val">48</div><div class="cstat-lbl">Unidades</div></div>
+          <div class="cstat"><div class="cstat-val">MITI 4.2</div><div class="cstat-lbl">Estándar</div></div>
+        </div>
+      </div>
+      <p style="color:var(--graphite);font-size:15px">Selecciona <strong>Módulo 1</strong> en el panel lateral para comenzar la formación. Los módulos 2–5 se desbloquean progresivamente.</p>
+    </div>
+
+    <!-- Contenido dinámico -->
+    <div id="dynamicContent" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DATOS DEL PROGRAMA
+// ═══════════════════════════════════════════════
+
+const MODULES = [
+  {
+    id: 'M1',
+    color: '#1B2B6B',
+    title: 'Bases Teóricas y Espíritu de la EM',
+    level: 'Nivel Aprendiz · Fundamentos epistemológicos',
+    hours: 32,
+    unlocked: true,
+    units: [
+      {
+        id: '1.1',
+        title: 'Historia y desarrollo de la EM',
+        subtitle: 'Del Drinker Project (1983) a la 3.ª edición (2012)',
+        content: `
+          <div class="unit-header">
+            <div class="unit-eyebrow">Módulo 1 · Unidad 1.1</div>
+            <div class="unit-title">Historia y desarrollo de la Entrevista Motivacional</div>
+            <div class="unit-intro">La EM no emergió de una teoría a priori, sino de la observación clínica sistemática de qué conductas del terapeuta producían cambio en pacientes con problemas de alcohol. Comprender su génesis es comprender su lógica interna.</div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Origen y contexto histórico</div>
+            <p>La Entrevista Motivacional fue descrita por primera vez por <strong>William R. Miller</strong> en 1983 en el artículo <em>"Motivational Interviewing with Problem Drinkers"</em>, publicado en la revista Behavioural Psychotherapy. Miller observó, durante su trabajo en el Drinker's Check-Up Project en la Universidad de Nuevo México, que ciertos estilos de interacción terapéutica producían sistemáticamente más cambio que otros, independientemente de la orientación teórica del terapeuta.</p>
+            <p>El primer hallazgo contraintuitivo fue que <strong>la confrontación directa aumentaba la resistencia</strong> en lugar de reducirla, mientras que un estilo empático, no directivo y evocador producía mayor ambivalencia explorada y mayor discurso de cambio. Esto contrariaba la práctica dominante en tratamiento de adicciones de la época, que privilegiaba la confrontación y el quiebre de la negación.</p>
+            <div class="key-concept">
+              <div class="kc-label">Hallazgo fundacional</div>
+              En el estudio original de Miller et al. (1988), los terapeutas con mayor confrontación producían más resistencia verbal y peores resultados a 12 meses, mientras que los terapeutas con mayor empatía reflexiva producían mayor discurso de cambio y mejores tasas de abstinencia. La variable predictora no era la técnica, sino el <em>estilo relacional</em>.
+            </div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Línea de tiempo del desarrollo</div>
+            <table class="data-table">
+              <thead><tr><th>Año</th><th>Hito</th><th>Relevancia clínica</th></tr></thead>
+              <tbody>
+                <tr><td><strong>1983</strong></td><td>Artículo fundacional de Miller en Behavioural Psychotherapy</td><td>Primera descripción sistemática del método</td></tr>
+                <tr><td><strong>1991</strong></td><td>1.ª edición del libro con Rollnick. Guilford Press</td><td>Formalización del modelo y difusión internacional</td></tr>
+                <tr><td><strong>1995</strong></td><td>Proyecto MATCH: mayor ensayo clínico en alcohol</td><td>EM comparable a TCC y 12 pasos en eficacia</td></tr>
+                <tr><td><strong>2002</strong></td><td>2.ª edición revisada. Integración del MTT</td><td>Incorporación formal de estadios de cambio</td></tr>
+                <tr><td><strong>2002</strong></td><td>Fundación de MINT (Motivational Interviewing Network of Trainers)</td><td>Estandarización internacional de la formación</td></tr>
+                <tr><td><strong>2009</strong></td><td>Desarrollo del MITI 3.1 (Moyers et al.)</td><td>Primera herramienta de fidelidad operacionalizada</td></tr>
+                <tr><td><strong>2012</strong></td><td>3.ª edición: modelo de 4 procesos y espíritu PACE</td><td>Versión vigente y base de este programa</td></tr>
+                <tr><td><strong>2014</strong></td><td>MITI 4.2.1 (Moyers, Manuel & Ernst)</td><td>Estándar actual de evaluación de competencia</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Influencias teóricas integradas</div>
+            <p>La EM no surgió en un vacío teórico. Miller integró tres tradiciones que siguen visibles en la práctica actual:</p>
+            <ul class="content-list">
+              <li><strong>Carl Rogers (1951):</strong> La relación terapéutica empática, la aceptación incondicional y la congruencia como condiciones necesarias y suficientes del cambio. El espíritu de la EM es esencialmente rogeriano.</li>
+              <li><strong>Leon Festinger (1957):</strong> La teoría de la disonancia cognitiva explica por qué escuchar el propio discurso de cambio produce mayor compromiso que escuchar argumentos externos. El terapeuta evoca, no convence.</li>
+              <li><strong>Daryl Bem (1967):</strong> La teoría de la autopercepción: las personas infieren sus actitudes de su propio comportamiento verbal. Hablar sobre el cambio aumenta la probabilidad de cambiar.</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Expansión a nuevas áreas clínicas</div>
+            <p>Originada en el tratamiento del alcoholismo, la EM se ha extendido con evidencia acumulada a:</p>
+            <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+              <span class="tag">Drogodependencias</span><span class="tag">Tabaquismo</span><span class="tag">VIH/adherencia</span><span class="tag">Diabetes tipo 2</span><span class="tag">Salud mental</span><span class="tag">Conductas de riesgo sexual</span><span class="tag">Juego patológico</span><span class="tag">Trastornos alimentarios</span><span class="tag">Adolescentes</span><span class="tag">Oncología</span><span class="tag">Medicina de atención primaria</span>
+            </div>
+          </div>
+
+          <div class="evidence-box">
+            <div class="ev-label">Referencias bibliográficas clave</div>
+            <div class="ev-item"><cite>Miller, W.R. (1983).</cite> Motivational interviewing with problem drinkers. Behavioural Psychotherapy, 11(2), 147-172. [Artículo fundacional original]</div>
+            <div class="ev-item"><cite>Miller, W.R. & Rollnick, S. (2012).</cite> Motivational Interviewing: Helping People Change (3.ª ed.). Guilford Press. Caps. 1-2.</div>
+            <div class="ev-item"><cite>Miller, W.R., Taylor, C.A. & West, J.C. (1980).</cite> Focused versus broad-spectrum behavior therapy for problem drinkers. Journal of Consulting and Clinical Psychology, 48(5), 590-601.</div>
+            <div class="ev-item"><cite>Project MATCH Research Group (1997).</cite> Matching alcoholism treatments to client heterogeneity. Journal of Studies on Alcohol, 58(1), 7-29.</div>
+          </div>
+
+          <div class="reflection-box">
+            <div class="refl-label">Actividad de reflexión clínica</div>
+            <div class="refl-question">¿En tu práctica clínica actual, qué peso tiene el estilo relacional versus la técnica específica? Describe un caso donde el estilo del terapeuta (tuyo o de un colega) fue determinante en el resultado, independientemente de la técnica utilizada.</div>
+            <textarea class="refl-textarea" placeholder="Escribe tu reflexión aquí..."></textarea>
+          </div>
+        `
+      },
+      {
+        id: '1.2',
+        title: 'Diferenciación conceptual de la EM',
+        subtitle: 'EM vs. Rogers, TCC, confrontación y psicoeducación',
+        content: `
+          <div class="unit-header">
+            <div class="unit-eyebrow">Módulo 1 · Unidad 1.2</div>
+            <div class="unit-title">¿Qué es y qué no es la Entrevista Motivacional?</div>
+            <div class="unit-intro">Un error frecuente en la formación es asimilar la EM a psicoterapia centrada en la persona, a counseling no directivo, o a una técnica de persuasión. Estas confusiones tienen consecuencias directas en la práctica clínica y en la fidelidad al modelo.</div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Definición operacional vigente</div>
+            <div class="key-concept">
+              <div class="kc-label">Definición (Miller & Rollnick, 2012, p. 29)</div>
+              "La Entrevista Motivacional es un estilo de conversación colaborativo y orientado hacia un objetivo, con especial atención al lenguaje de cambio, diseñado para fortalecer la motivación personal y el compromiso hacia un objetivo específico mediante la evocación y exploración de las propias razones de la persona para el cambio, en una atmósfera de aceptación y compasión."
+            </div>
+            <p>Cuatro elementos son ineludibles en esta definición: (1) es un <strong>estilo de conversación</strong>, no un protocolo rígido; (2) está <strong>orientada hacia un objetivo</strong>, lo que la diferencia del counseling no directivo; (3) atiende específicamente al <strong>lenguaje de cambio</strong>; y (4) la motivación se <strong>evoca</strong>, no se instala desde afuera.</p>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Tabla comparativa: EM vs. otros enfoques</div>
+            <table class="data-table">
+              <thead><tr><th>Dimensión</th><th>EM</th><th>Rogers/Centrada en persona</th><th>TCC</th><th>Confrontación clásica</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Directividad</strong></td><td>Directiva hacia el cambio</td><td>No directiva</td><td>Directiva hacia cogniciones</td><td>Directiva hacia la verdad del terapeuta</td></tr>
+                <tr><td><strong>Objetivo</strong></td><td>Movilizar motivación intrínseca</td><td>Crecimiento personal</td><td>Modificar patrones cognitivo-conductuales</td><td>Romper la negación</td></tr>
+                <tr><td><strong>Relación</strong></td><td>Colaboración / asociación</td><td>Incondicionalidad</td><td>Colaboración empirista</td><td>Asimétrica: terapeuta como experto</td></tr>
+                <tr><td><strong>Resistencia</strong></td><td>Señal de discordancia a explorar</td><td>Reflejo a espejear</td><td>Distorsión cognitiva a corregir</td><td>Negación a confrontar</td></tr>
+                <tr><td><strong>Consejo</strong></td><td>Con permiso, menú de opciones</td><td>No se da consejo</td><td>Psicoeducación activa</td><td>Prescriptivo y directivo</td></tr>
+                <tr><td><strong>Duración típica</strong></td><td>1 a pocas sesiones (también larga)</td><td>Proceso largo</td><td>Protocolo definido</td><td>Variable</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Lo que la EM no es: errores de implementación frecuentes</div>
+            <ul class="content-list">
+              <li><strong>No es un "truco de ventas":</strong> La EM no es persuasión encubierta. El objetivo es fortalecer la autonomía del paciente, no manipularlo hacia el cambio que el terapeuta considera correcto.</li>
+              <li><strong>No es simplemente ser "amable":</strong> El espíritu de la EM requiere habilidades técnicas precisas. Un terapeuta empático sin las habilidades OARS no está practicando EM.</li>
+              <li><strong>No es solo para adicciones:</strong> Aunque nació en ese contexto, su mecanismo de acción (resolución de ambivalencia) aplica a cualquier cambio conductual con motivación interna insuficiente.</li>
+              <li><strong>No es terapia completa:</strong> La EM prepara para el cambio. No trata el trastorno de fondo. Funciona mejor como preámbulo o componente de un tratamiento más amplio.</li>
+              <li><strong>No ignora el objetivo:</strong> A diferencia del counseling rogeriano, la EM tiene una dirección clara. El terapeuta guía selectivamente la conversación hacia el discurso de cambio.</li>
+            </ul>
+          </div>
+
+          <div class="evidence-box">
+            <div class="ev-label">Referencias bibliográficas clave</div>
+            <div class="ev-item"><cite>Miller, W.R. & Rollnick, S. (2012).</cite> Motivational Interviewing (3.ª ed.). Guilford Press. Cap. 2: "The Spirit of MI", pp. 14-31.</div>
+            <div class="ev-item"><cite>Rollnick, S. & Miller, W.R. (1995).</cite> What is motivational interviewing? Behavioural and Cognitive Psychotherapy, 23(4), 325-334. [Clarificación canónica de lo que NO es EM]</div>
+            <div class="ev-item"><cite>Miller, W.R. & Rose, G.S. (2009).</cite> Toward a theory of motivational interviewing. American Psychologist, 64(6), 527-537.</div>
+          </div>
+
+          <div class="reflection-box">
+            <div class="refl-label">Actividad de reflexión clínica</div>
+            <div class="refl-question">Identifica en tu práctica una situación donde hayas utilizado algún elemento que se parece a EM pero que, revisado con esta tabla comparativa, correspondería más a otro enfoque (TCC, confrontación, consejo directo). ¿Cuál fue el resultado y qué harías diferente ahora?</div>
+            <textarea class="refl-textarea" placeholder="Escribe tu reflexión aquí..."></textarea>
+          </div>
+        `
+      },
+      {
+        id: '1.3',
+        title: 'El espíritu de la EM: PACE',
+        subtitle: 'Partnership, Acceptance, Compassion, Evocation',
+        content: `
+          <div class="unit-header">
+            <div class="unit-eyebrow">Módulo 1 · Unidad 1.3</div>
+            <div class="unit-title">El Espíritu de la EM: PACE como actitud clínica fundamental</div>
+            <div class="unit-intro">Las habilidades OARS sin el espíritu de la EM producen técnicas vacías. El espíritu es la actitud subyacente desde la cual emergen todas las habilidades. No es posible practicar EM auténtica sin internalizarlo.</div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Los cuatro componentes del espíritu PACE</div>
+            <div class="key-concept">
+              <div class="kc-label">Partnership — Asociación / Colaboración</div>
+              El terapeuta y el paciente son socios en la exploración del cambio. El terapeuta no es el experto que sabe lo que el paciente debe hacer; es un compañero de exploración que aporta habilidades técnicas mientras el paciente aporta su propia experiencia, valores y sabiduría. La metáfora de Miller es la de un baile, no una lucha de sumo.
+            </div>
+            <div class="key-concept">
+              <div class="kc-label">Acceptance — Aceptación (4 componentes)</div>
+              No es aprobación de la conducta sino aceptación de la persona. Incluye: (1) <strong>Valor absoluto</strong>: reconocer la valía intrínseca del ser humano independientemente de su conducta. (2) <strong>Empatía precisa</strong>: esfuerzo activo por entender la perspectiva interna del otro. (3) <strong>Autonomía</strong>: respetar el derecho del paciente a elegir su propio camino, incluso cuando no es el que el clínico elegiría. (4) <strong>Afirmación</strong>: reconocer y apreciar las fortalezas y esfuerzos reales del paciente.
+            </div>
+            <div class="key-concept">
+              <div class="kc-label">Compassion — Compasión</div>
+              El terapeuta actúa en beneficio del paciente, priorizando activamente su bienestar y sus necesidades. No es simpatía ni identificación emocional con el sufrimiento, sino un compromiso ético activo de trabajar en interés del otro. Previene el uso de la EM para beneficio del terapeuta o la institución.
+            </div>
+            <div class="key-concept">
+              <div class="kc-label">Evocation — Evocación</div>
+              Las razones para el cambio, los recursos y la motivación ya están en el paciente. El trabajo del terapeuta es evocarlos, no instalarlos. Esto se opone al modelo del déficit (el paciente carece de motivación y el terapeuta se la da). La motivación intrínseca, cuando emerge del propio paciente, produce mayor compromiso y sostenimiento del cambio.
+            </div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Por qué el espíritu precede a las técnicas</div>
+            <p>Miller & Rollnick advierten explícitamente que las habilidades OARS practicadas sin el espíritu PACE producen lo que denominan <strong>"EM de boca para afuera"</strong> (MI on the outside): un simulacro técnico que superficialmente parece EM pero que el paciente experimenta como inauténtico y que no produce los efectos esperados.</p>
+            <p>La investigación de proceso con MITI confirma esto: terapeutas con alta adherencia técnica pero baja puntuación en <em>espíritu global</em> (ítem de codificación cualitativa) producen peores resultados que terapeutas con espíritu genuino y técnica moderada.</p>
+            <ul class="content-list">
+              <li>El espíritu PACE no es una postura estratégica sino una orientación filosófica hacia el paciente que requiere trabajo de autoconciencia sostenido.</li>
+              <li>El componente de <strong>autonomía</strong> es el más difícil para clínicos formados en modelos directivos o de experto, especialmente en contextos de adicciones o mandato judicial.</li>
+              <li>La <strong>compasión</strong> distingue la EM de su uso instrumental (para lograr adherencia a protocolos institucionales). Sin compasión, la EM puede convertirse en manipulación bienintencionada.</li>
+            </ul>
+          </div>
+
+          <div class="evidence-box">
+            <div class="ev-label">Referencias bibliográficas clave</div>
+            <div class="ev-item"><cite>Miller, W.R. & Rollnick, S. (2012).</cite> Motivational Interviewing (3.ª ed.). Guilford Press. Cap. 2, pp. 14-31 y Cap. 3, pp. 32-50.</div>
+            <div class="ev-item"><cite>Moyers, T.B. & Miller, W.R. (2013).</cite> Is low therapist empathy toxic? Psychology of Addictive Behaviors, 27(3), 878-884. [Evidencia sobre impacto del espíritu en resultados]</div>
+            <div class="ev-item"><cite>Rogers, C.R. (1951).</cite> Client-Centered Therapy. Houghton Mifflin. [Base filosófica del componente Acceptance]</div>
+          </div>
+
+          <div class="reflection-box">
+            <div class="refl-label">Ejercicio de autodiagnóstico</div>
+            <div class="refl-question">De los cuatro componentes PACE, ¿cuál resulta más desafiante para ti en tu práctica actual y por qué? ¿Con qué tipo de paciente o situación clínica ese componente se ve más comprometido? Sé específico y concreto.</div>
+            <textarea class="refl-textarea" placeholder="Escribe tu reflexión aquí..."></textarea>
+          </div>
+        `
+      },
+      {
+        id: '1.4',
+        title: 'Modelo Transteórico del Cambio',
+        subtitle: 'Prochaska & DiClemente: estadios y procesos de cambio',
+        content: `
+          <div class="unit-header">
+            <div class="unit-eyebrow">Módulo 1 · Unidad 1.4</div>
+            <div class="unit-title">Modelo Transteórico del Cambio (MTT)</div>
+            <div class="unit-intro">El MTT no es la base teórica de la EM, pero proporciona el mapa diagnóstico que permite al clínico calibrar en qué fase se encuentra el paciente y adaptar la intervención motivacional al momento del proceso de cambio.</div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Los seis estadios del cambio</div>
+            <table class="data-table">
+              <thead><tr><th>Estadio</th><th>Característica central</th><th>Tarea clínica en EM</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Precontemplación</strong></td><td>No considera el cambio. Sin conciencia del problema o con negación activa.</td><td>Generar conciencia sin confrontación. Sembrar duda. Explorar el lado bueno de la conducta y sus costos.</td></tr>
+                <tr><td><strong>Contemplación</strong></td><td>Ambivalencia: considera el cambio pero también considera no cambiar. "Sí, pero..."</td><td>Explorar y resolver la ambivalencia. Fortalecer el lado del cambio. Balanza decisional.</td></tr>
+                <tr><td><strong>Preparación</strong></td><td>Intención de cambiar pronto. Planes incipientes, búsqueda de información.</td><td>Fortalecer el compromiso. Construir el plan. Anticipar obstáculos.</td></tr>
+                <tr><td><strong>Acción</strong></td><td>Modificación activa de conducta. Esfuerzo visible y sostenido.</td><td>Apoyar y reforzar. Prevenir recaída temprana. Mantener el espíritu EM.</td></tr>
+                <tr><td><strong>Mantenimiento</strong></td><td>Consolidación del cambio por más de 6 meses. Prevención de recaída.</td><td>Prevención de recaída. Fortalecer autoeficacia. Plan de crisis.</td></tr>
+                <tr><td><strong>Recaída/Reciclaje</strong></td><td>Retorno a conducta anterior. No es fracaso sino parte esperada del proceso.</td><td>Normalizar. Reencuadrar como aprendizaje. Retomar proceso sin culpa.</td></tr>
+              </tbody>
+            </table>
+            <div class="key-concept">
+              <div class="kc-label">Error clínico frecuente</div>
+              Aplicar intervenciones de "Acción" (planificación, técnicas conductuales) a pacientes en Precontemplación o Contemplación produce resistencia, abandono y el efecto opuesto al deseado. La EM es especialmente eficaz en las fases de Precontemplación y Contemplación donde otras intervenciones fracasan.
+            </div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Relación MTT–EM: convergencias y tensiones</div>
+            <p>Es importante distinguir que el MTT y la EM son <strong>marcos diferentes</strong>, no el mismo modelo. Miller & Rollnick han señalado que la EM es compatible con el MTT pero no depende de él. Las principales tensiones teóricas son:</p>
+            <ul class="content-list">
+              <li>El MTT asume que el cambio sigue una secuencia de estadios relativamente discretos; la EM trabaja con la fluidez del proceso motivacional sin asumir etapas rígidas.</li>
+              <li>El MTT surgió del estudio del cambio espontáneo (sin terapia); la EM describe un proceso terapéutico activo.</li>
+              <li>La evidencia sobre los estadios del MTT como entidades discretas es debatida. Littell & Girvin (2002) cuestionaron su validez empírica como constructos separables.</li>
+            </ul>
+          </div>
+
+          <div class="evidence-box">
+            <div class="ev-label">Referencias bibliográficas clave</div>
+            <div class="ev-item"><cite>Prochaska, J.O. & DiClemente, C.C. (1983).</cite> Stages and processes of self-change of smoking. Journal of Consulting and Clinical Psychology, 51(3), 390-395. [Artículo original del MTT]</div>
+            <div class="ev-item"><cite>Prochaska, J.O., DiClemente, C.C. & Norcross, J.C. (1992).</cite> In search of how people change. American Psychologist, 47(9), 1102-1114.</div>
+            <div class="ev-item"><cite>Littell, J.H. & Girvin, H. (2002).</cite> Stages of change: A critique. Behavior Modification, 26(2), 223-273. [Crítica empírica al modelo]</div>
+            <div class="ev-item"><cite>Miller, W.R. & Rollnick, S. (2012).</cite> Motivational Interviewing (3.ª ed.). Guilford Press. Cap. 13, pp. 193-208.</div>
+          </div>
+
+          <div class="reflection-box">
+            <div class="refl-label">Actividad de aplicación clínica</div>
+            <div class="refl-question">Piensa en tres pacientes actuales o recientes con conductas problemáticas distintas. Ubica a cada uno en un estadio del MTT. ¿Qué indicadores verbales o conductuales usaste para hacer esa clasificación? ¿Estaban recibiendo intervenciones apropiadas para su estadio?</div>
+            <textarea class="refl-textarea" placeholder="Escribe tu reflexión aquí..."></textarea>
+          </div>
+        `
+      },
+      {
+        id: '1.5',
+        title: 'Neurociencia de la motivación',
+        subtitle: 'Dopamina, cortex prefrontal y plasticidad motivacional',
+        content: `
+          <div class="unit-header">
+            <div class="unit-eyebrow">Módulo 1 · Unidad 1.5</div>
+            <div class="unit-title">Neurociencia de la motivación y el cambio conductual</div>
+            <div class="unit-intro">Comprender el sustrato neurobiológico de la motivación no es un ejercicio académico decorativo: proporciona el marco explicativo de por qué la EM funciona y por qué la confrontación directa produce el efecto opuesto al deseado.</div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Sistema dopaminérgico y motivación</div>
+            <p>La motivación para el cambio involucra el sistema mesolímbico-mesocortical, particularmente la <strong>vía mesolímbica</strong> (área tegmental ventral → núcleo accumbens) responsable del procesamiento de la recompensa, y la <strong>vía mesocortical</strong> (área tegmental ventral → corteza prefrontal) responsable de la regulación cognitiva del comportamiento motivado.</p>
+            <div class="key-concept">
+              <div class="kc-label">Dopamina: señal de predicción de recompensa</div>
+              Las neuronas dopaminérgicas no responden simplemente a la recompensa, sino a la <em>discrepancia entre recompensa esperada y recompensa obtenida</em> (Schultz, 1997). Esto explica por qué la anticipación del cambio (discurso de cambio, visualización del futuro) activa el sistema dopaminérgico y genera motivación, aunque el cambio aún no haya ocurrido.
+            </div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Corteza prefrontal y autorregulación</div>
+            <p>La <strong>corteza prefrontal dorsolateral (CPFDL)</strong> es responsable de la planificación, el control inhibitorio y la memoria de trabajo orientada a objetivos. La <strong>corteza prefrontal ventromedial (CPFVM)</strong> integra la valoración emocional de las opciones con la toma de decisiones.</p>
+            <ul class="content-list">
+              <li>En adicciones, el consumo crónico produce hipofrontalidad prefrontal: disminución de la actividad del CPFDL, lo que reduce el control inhibitorio sobre los impulsos generados por el sistema límbico.</li>
+              <li>La EM, al fortalecer la discrepancia entre valores personales y conducta actual, activa la CPFVM y recluta recursos cognitivos del CPFDL para la toma de decisiones orientada al cambio.</li>
+              <li>El escuchar el propio discurso de cambio activa redes prefrontales de manera más intensa que escuchar argumentos externos (Lieberman et al., 2007).</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Por qué la confrontación activa la resistencia</div>
+            <p>La confrontación directa activa el sistema de amenaza (amígdala, eje HPA), lo que produce una respuesta defensiva que interfiere con el procesamiento reflexivo prefrontal. El paciente confrontado:</p>
+            <ul class="content-list">
+              <li>Entra en modo de protección del yo (reactancia psicológica, Brehm, 1966)</li>
+              <li>Produce más discurso de sostenimiento (argumentos en contra del cambio)</li>
+              <li>Consolida sus posiciones en lugar de explorarlas</li>
+            </ul>
+            <div class="key-concept">
+              <div class="kc-label">Implicación clínica directa</div>
+              La EM trabaja con el sistema, no contra él. Al crear un ambiente de seguridad (aceptación, ausencia de juicio) reduce la activación amigdalina y permite el acceso al procesamiento prefrontal donde residen los valores, las metas y la capacidad de cambio deliberado.
+            </div>
+          </div>
+
+          <div class="evidence-box">
+            <div class="ev-label">Referencias bibliográficas clave</div>
+            <div class="ev-item"><cite>Schultz, W. (1997).</cite> A neural substrate of prediction and reward. Science, 275(5306), 1593-1599. [Base neuronal de la predicción de recompensa]</div>
+            <div class="ev-item"><cite>Volkow, N.D. et al. (2011).</cite> Addiction: Beyond dopamine reward circuitry. PNAS, 108(37), 15037-15042.</div>
+            <div class="ev-item"><cite>Brehm, J.W. (1966).</cite> A Theory of Psychological Reactance. Academic Press. [Base de por qué la confrontación genera resistencia]</div>
+            <div class="ev-item"><cite>Goldstein, R.Z. & Volkow, N.D. (2011).</cite> Dysfunction of the prefrontal cortex in addiction. Nature Reviews Neuroscience, 12(11), 652-669.</div>
+          </div>
+
+          <div class="reflection-box">
+            <div class="refl-label">Integración clínica</div>
+            <div class="refl-question">¿Cómo explicarías a un paciente con trastorno por uso de sustancias —en términos accesibles pero científicamente precisos— por qué "querer cambiar" no es suficiente para cambiar? ¿Cómo usarías el conocimiento neurocientífico para validar su experiencia de ambivalencia sin patologizarla?</div>
+            <textarea class="refl-textarea" placeholder="Escribe tu reflexión aquí..."></textarea>
+          </div>
+        `
+      },
+      {
+        id: '1.6',
+        title: 'Resistencia y discordancia',
+        subtitle: 'Definición actualizada (Miller & Rollnick, 2012)',
+        content: `
+          <div class="unit-header">
+            <div class="unit-eyebrow">Módulo 1 · Unidad 1.6</div>
+            <div class="unit-title">Resistencia, discordancia y su manejo en EM</div>
+            <div class="unit-intro">La reconceptualización de la "resistencia" es uno de los cambios más importantes de la 3.ª edición. El término fue eliminado del vocabulario EM por sus connotaciones peyorativas y porque atribuía el problema al paciente cuando frecuentemente era una respuesta al estilo del terapeuta.</div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Del concepto clásico al modelo actualizado</div>
+            <div class="key-concept">
+              <div class="kc-label">Concepto clásico (problema del paciente)</div>
+              Resistencia como característica intrapsíquica del paciente: negación, falta de insight, mecanismos de defensa. Implicación clínica: el terapeuta debe "vencer" la resistencia. Resultado frecuente: confrontación, argumentación, autoridad del experto.
+            </div>
+            <div class="key-concept">
+              <div class="kc-label">Modelo EM 3.ª edición (fenómeno interaccional)</div>
+              Miller & Rollnick eliminan el término "resistencia" y lo reemplazan por dos constructos: <strong>Discordancia</strong> (discord): tensión en la relación terapéutica, señal de que el proceso de vinculación necesita atención. <strong>Discurso de sostenimiento</strong> (sustain talk): argumentos del paciente a favor de mantener la conducta actual. Ambos son información, no obstáculos.
+            </div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Respuestas clínicas ante discordancia y discurso de sostenimiento</div>
+            <table class="data-table">
+              <thead><tr><th>Situación</th><th>Respuesta NO-EM</th><th>Respuesta EM</th></tr></thead>
+              <tbody>
+                <tr><td>Paciente dice: "Yo no tengo ningún problema"</td><td>"Claro que tienes un problema, mira los resultados..."</td><td>"Desde tu perspectiva las cosas están bien. ¿Qué te trajo aquí hoy entonces?"</td></tr>
+                <tr><td>Paciente interrumpe o cambia el tema</td><td>Redirigir con autoridad</td><td>Reconocer la incomodidad. Explorar con curiosidad genuina.</td></tr>
+                <tr><td>"No voy a dejar de beber"</td><td>"Debes dejar de beber para mejorar"</td><td>"No quiero que cambies nada que no quieras cambiar. ¿Qué sí te gustaría que fuera diferente?"</td></tr>
+                <tr><td>Hostilidad o enojo del paciente</td><td>Defensividad o confrontación</td><td>Reflejo empático de la emoción. Reconocer la dificultad de la situación.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="evidence-box">
+            <div class="ev-label">Referencias bibliográficas clave</div>
+            <div class="ev-item"><cite>Miller, W.R. & Rollnick, S. (2012).</cite> Motivational Interviewing (3.ª ed.). Guilford Press. Cap. 19: "When the Conversation Gets Stuck", pp. 192-205.</div>
+            <div class="ev-item"><cite>Moyers, T.B. & Martin, T. (2006).</cite> Therapist influence on client language during motivational interviewing sessions. Journal of Substance Abuse Treatment, 30(3), 245-251.</div>
+            <div class="ev-item"><cite>Miller, W.R., Benefield, R.G. & Tonigan, J.S. (1993).</cite> Enhancing motivation for change in problem drinking. Journal of Consulting & Clinical Psychology, 61(3), 455-461.</div>
+          </div>
+
+          <div class="reflection-box">
+            <div class="refl-label">Ejercicio de reformulación</div>
+            <div class="refl-question">Escribe tres respuestas de discordancia o sostenimiento que hayas recibido recientemente de pacientes. Reformúlalas ahora desde el modelo actualizado: ¿qué información te estaba dando el paciente? ¿Qué respuesta EM sería apropiada para cada una?</div>
+            <textarea class="refl-textarea" placeholder="Describe las situaciones y tus respuestas reformuladas..."></textarea>
+          </div>
+        `
+      },
+      {
+        id: '1.7',
+        title: 'Meta-análisis y evidencia de eficacia',
+        subtitle: 'Lundahl (2010), Hettema (2005) y revisiones Cochrane',
+        content: `
+          <div class="unit-header">
+            <div class="unit-eyebrow">Módulo 1 · Unidad 1.7</div>
+            <div class="unit-title">Base empírica de la Entrevista Motivacional</div>
+            <div class="unit-intro">La EM es uno de los enfoques terapéuticos con mayor volumen de investigación empírica acumulada. Conocer el estado de la evidencia es condición necesaria para su uso ético y para comunicar su utilidad a equipos institucionales y pacientes.</div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Síntesis de la evidencia acumulada</div>
+            <table class="data-table">
+              <thead><tr><th>Meta-análisis</th><th>N estudios</th><th>Hallazgo principal</th><th>d de Cohen</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Lundahl et al. (2010)</strong></td><td>119 RCT</td><td>EM superior a placebo/control en conductas de salud. Efectos similares a tratamientos activos con menos tiempo.</td><td>d = 0.22 a 0.35</td></tr>
+                <tr><td><strong>Hettema et al. (2005)</strong></td><td>72 estudios</td><td>EM tiene efectos más fuertes cuando se usa como preparación para tratamiento. Mayor efecto en poblaciones minoritarias.</td><td>d = 0.77 (primeros 3 meses)</td></tr>
+                <tr><td><strong>Burke et al. (2003)</strong></td><td>30 RCT</td><td>EM equivalente a TCC y 12 pasos en alcohol, tabaco y otras sustancias, con menor número de sesiones.</td><td>d = 0.25-0.57</td></tr>
+                <tr><td><strong>Rubak et al. (2005)</strong></td><td>72 RCT</td><td>En salud física (diabetes, colesterol, HTA, IMC): 74% de estudios con efectos positivos.</td><td>d = 0.77</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Áreas con mayor evidencia acumulada</div>
+            <ul class="content-list">
+              <li><strong>Alcohol y tabaco:</strong> Evidencia más sólida y consistente. Múltiples RCT con seguimientos de 12+ meses.</li>
+              <li><strong>Conductas de salud (diabetes, VIH, hipertensión):</strong> EM breve de 1-4 sesiones produce cambios clínicamente significativos en adherencia y marcadores biológicos.</li>
+              <li><strong>Drogas ilegales:</strong> Evidencia moderada. EM como preparación para tratamiento aumenta la retención en el mismo.</li>
+              <li><strong>Salud mental:</strong> Evidencia emergente. Mayor eficacia en depresión y ansiedad cuando se combina con otros tratamientos (EM+TCC).</li>
+            </ul>
+            <div class="key-concept">
+              <div class="kc-label">Limitaciones metodológicas a conocer</div>
+              Heterogeneidad en la definición de "EM" entre estudios, ausencia de verificación de fidelidad (solo el 11% de estudios en Lundahl 2010 usaron medidas de fidelidad), y sesgo de publicación positivo. Los efectos son modestos en términos absolutos pero relevantes clínicamente dado el bajo costo de la intervención.
+            </div>
+          </div>
+
+          <div class="evidence-box">
+            <div class="ev-label">Referencias bibliográficas clave</div>
+            <div class="ev-item"><cite>Lundahl, B.W. et al. (2010).</cite> A meta-analysis of motivational interviewing: Twenty-five years of empirical studies. Research on Social Work Practice, 20(2), 137-160.</div>
+            <div class="ev-item"><cite>Hettema, J., Steele, J. & Miller, W.R. (2005).</cite> Motivational interviewing. Annual Review of Clinical Psychology, 1, 91-111.</div>
+            <div class="ev-item"><cite>Rubak, S. et al. (2005).</cite> Motivational interviewing: A systematic review and meta-analysis. British Journal of General Practice, 55(513), 305-312.</div>
+            <div class="ev-item"><cite>Burke, B.L., Arkowitz, H. & Menchola, M. (2003).</cite> The efficacy of motivational interviewing. Journal of Consulting and Clinical Psychology, 71(5), 843-861.</div>
+          </div>
+
+          <div class="reflection-box">
+            <div class="refl-label">Aplicación institucional</div>
+            <div class="refl-question">Si tuvieras que justificar la implementación de EM en tu institución ante un comité directivo con criterios de costo-efectividad, ¿qué argumentos basados en evidencia presentarías? ¿Qué limitaciones de la evidencia reconocerías con honestidad académica?</div>
+            <textarea class="refl-textarea" placeholder="Escribe tu argumentación..."></textarea>
+          </div>
+        `
+      },
+      {
+        id: '1.8',
+        title: 'Ética en Entrevista Motivacional',
+        subtitle: 'Autonomía, consentimiento informado y límites de la evocación',
+        content: `
+          <div class="unit-header">
+            <div class="unit-eyebrow">Módulo 1 · Unidad 1.8</div>
+            <div class="unit-title">Dimensiones éticas de la práctica motivacional</div>
+            <div class="unit-intro">La EM es una intervención con poder de influencia. Su uso sin reflexión ética puede producir resultados contrarios a los principios que la fundamentan: puede usarse para manipular, para lograr objetivos institucionales, o para ignorar la autonomía real del paciente.</div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">La tensión fundamental: dirección vs. autonomía</div>
+            <p>La EM es un método <strong>directivo</strong> (tiene una dirección hacia el cambio) que al mismo tiempo enfatiza la <strong>autonomía</strong> del paciente. Esta tensión no desaparece con la formación; debe gestionarse conscientemente en cada sesión.</p>
+            <div class="key-concept">
+              <div class="kc-label">Pregunta ética central (Miller & Rollnick, 2012)</div>
+              "¿Para quién es el cambio?" Si el cambio que estoy evocando beneficia primariamente a la institución, a los familiares, o al terapeuta, y no al paciente como persona autónoma, estamos fuera del espíritu ético de la EM.
+            </div>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Dilemas éticos frecuentes en la práctica</div>
+            <ul class="content-list">
+              <li><strong>Contextos de mandato judicial:</strong> El paciente no eligió venir. ¿Puede practicarse EM auténtica cuando la autonomía está coartada estructuralmente? La respuesta de Miller es que el espíritu PACE sigue siendo válido y posible, pero requiere transparencia sobre el contexto.</li>
+              <li><strong>EM para objetivos institucionales:</strong> Usar EM para aumentar la adherencia a protocolos que el paciente no ha elegido libremente es éticamente cuestionable aunque técnicamente posible.</li>
+              <li><strong>Conductas que afectan a terceros:</strong> Respetar la autonomía de un paciente que decide continuar una conducta de riesgo que daña a otros (conducción bajo efectos, violencia doméstica) tiene límites éticos claros.</li>
+              <li><strong>Consentimiento informado sobre el método:</strong> ¿Debemos informar al paciente que estamos usando EM como enfoque? La postura estándar es que sí, al menos en términos generales del estilo de trabajo.</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <div class="block-label">Principios éticos guía para la práctica EM</div>
+            <ul class="content-list">
+              <li>El objetivo del cambio debe ser definido por el paciente, no impuesto por el terapeuta o la institución.</li>
+              <li>La EM no debe usarse para eludir el consentimiento informado o para acelerar procesos que el paciente no está listo para asumir.</li>
+              <li>Cuando el contexto coercitivo es inevitable, nombrarlo explícitamente preserva la honestidad relacional.</li>
+              <li>La compasión (el cuarto elemento PACE) es el guardián ético: actuar siempre en el mejor interés del paciente como persona completa.</li>
+            </ul>
+          </div>
+
+          <div class="evidence-box">
+            <div class="ev-label">Referencias bibliográficas clave</div>
+            <div class="ev-item"><cite>Miller, W.R. & Rollnick, S. (2012).</cite> Motivational Interviewing (3.ª ed.). Guilford Press. Cap. 4: "The Righting Reflex and the Ethics of MI", pp. 32-40.</div>
+            <div class="ev-item"><cite>Engle, D.E. & Arkowitz, H. (2006).</cite> Ambivalence in Psychotherapy: Facilitating Readiness to Change. Guilford Press. Cap. 10: Ethical considerations.</div>
+            <div class="ev-item"><cite>Principle of Autonomy:</cite> Beauchamp, T.L. & Childress, J.F. (2013). Principles of Biomedical Ethics (7.ª ed.). Oxford University Press.</div>
+          </div>
+
+          <div class="reflection-box">
+            <div class="refl-label">Análisis de caso ético</div>
+            <div class="refl-question">Un paciente en tratamiento obligatorio por consumo de alcohol (derivado por un juez) te dice que no quiere dejar de beber y que solo viene porque "no le queda otra". ¿Cómo mantienes el espíritu EM sin ignorar el contexto institucional? ¿Qué le dices en los primeros 10 minutos de sesión?</div>
+            <textarea class="refl-textarea" placeholder="Describe tu aproximación clínica y los principios éticos que la guían..."></textarea>
+          </div>
+        `
+      }
+    ]
+  },
+  { id: 'M2', color: '#2A5298', title: 'Habilidades OARS', level: 'Nivel Iniciado', hours: 32, unlocked: false, units: [] },
+  { id: 'M3', color: '#1A6B4A', title: 'Los Cuatro Procesos EM', level: 'Nivel Competente', hours: 40, unlocked: false, units: [] },
+  { id: 'M4', color: '#7B2D8B', title: 'Contextos Clínicos Especializados', level: 'Nivel Avanzado', hours: 32, unlocked: false, units: [] },
+  { id: 'M5', color: '#C0392B', title: 'Supervisión y Formación de Formadores', level: 'Nivel Experto', hours: 24, unlocked: false, units: [] }
+];
+
+// ═══════════════════════════════════════════════
+// ESTADO
+// ═══════════════════════════════════════════════
+let state = {
+  currentModule: null,
+  currentUnit: null,
+  completed: JSON.parse(localStorage.getItem('em_completed') || '[]'),
+  moduleOpen: null
+};
+
+function saveCompleted() {
+  try { localStorage.setItem('em_completed', JSON.stringify(state.completed)); } catch(e) {}
+}
+
+function isCompleted(unitId) {
+  return state.completed.includes(unitId);
+}
+
+function markComplete(unitId) {
+  if (!isCompleted(unitId)) {
+    state.completed.push(unitId);
+    saveCompleted();
+  }
+  updateProgress();
+  renderSidebar();
+}
+
+// ═══════════════════════════════════════════════
+// RENDER SIDEBAR
+// ═══════════════════════════════════════════════
+function renderSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  nav.innerHTML = '';
+
+  MODULES.forEach((mod, mi) => {
+    const isOpen = state.moduleOpen === mod.id;
+    const doneCount = mod.units.filter(u => isCompleted(u.id)).length;
+
+    const group = document.createElement('div');
+    group.className = 'module-group';
+
+    const btn = document.createElement('button');
+    btn.className = 'module-btn' + (state.currentModule === mod.id ? ' active' : '');
+    btn.innerHTML = `
+      <div class="mod-dot" style="background:${mod.color}">${mod.id}</div>
+      <div class="mod-info">
+        <div class="mod-name">${mod.title}</div>
+        <div class="mod-status">${mod.unlocked ? (mod.units.length > 0 ? `${doneCount}/${mod.units.length} unidades` : 'Próximamente') : 'Bloqueado'}</div>
+      </div>
+      ${!mod.unlocked ? '<span class="mod-lock">🔒</span>' : ''}
+    `;
+    btn.onclick = () => {
+      if (!mod.unlocked) return;
+      if (state.moduleOpen === mod.id) {
+        state.moduleOpen = null;
+      } else {
+        state.moduleOpen = mod.id;
+      }
+      state.currentModule = mod.id;
+      state.currentUnit = null;
+      showModuleOverview(mod);
+      renderSidebar();
+    };
+
+    group.appendChild(btn);
+
+    if (mod.unlocked && mod.units.length > 0) {
+      const unitList = document.createElement('div');
+      unitList.className = 'unit-list-sidebar' + (isOpen ? ' open' : '');
+
+      mod.units.forEach(unit => {
+        const ub = document.createElement('button');
+        ub.className = 'unit-btn-sidebar' + (state.currentUnit === unit.id ? ' active' : '');
+        ub.innerHTML = `
+          <div class="unit-check ${isCompleted(unit.id) ? 'done' : ''}">✓</div>
+          <div class="unit-text-sb">${unit.id} ${unit.title}</div>
+        `;
+        ub.onclick = (e) => { e.stopPropagation(); showUnit(mod, unit); };
+        unitList.appendChild(ub);
+      });
+
+      group.appendChild(unitList);
+    }
+
+    nav.appendChild(group);
+  });
+
+  updateProgress();
+}
+
+// ═══════════════════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════════════════
+function updateProgress() {
+  const totalM1 = MODULES[0].units.length;
+  const doneM1 = MODULES[0].units.filter(u => isCompleted(u.id)).length;
+  const pct = totalM1 > 0 ? Math.round((doneM1 / totalM1) * 100) : 0;
+  document.getElementById('globalProgBar').style.width = pct + '%';
+  document.getElementById('globalProgText').textContent = doneM1;
+}
+
+// ═══════════════════════════════════════════════
+// SHOW MODULE OVERVIEW
+// ═══════════════════════════════════════════════
+function showModuleOverview(mod) {
+  document.getElementById('welcomeScreen').style.display = 'none';
+  const dc = document.getElementById('dynamicContent');
+  dc.style.display = 'block';
+
+  document.getElementById('breadcrumb').innerHTML = `<span>Programa EM</span> <span>›</span> <strong>${mod.id}: ${mod.title}</strong>`;
+  document.getElementById('btnPrev').style.display = 'none';
+  document.getElementById('btnNext').style.display = 'none';
+
+  if (!mod.unlocked) {
+    dc.innerHTML = `
+      <div class="locked-module">
+        <div class="lock-icon">🔒</div>
+        <h3>${mod.title}</h3>
+        <p>Este módulo se desbloqueará al completar el módulo anterior y superar la evaluación de competencias.</p>
+      </div>`;
+    return;
+  }
+
+  let unitsHtml = mod.units.length > 0 ? `
+    <div class="units-grid">
+      ${mod.units.map(u => `
+        <div class="unit-card ${isCompleted(u.id) ? 'done' : ''}" onclick="showUnit(MODULES.find(m=>m.id==='${mod.id}'), MODULES.find(m=>m.id==='${mod.id}').units.find(u=>u.id==='${u.id}'))">
+          <div class="unit-card-num">${u.id}</div>
+          <div class="unit-card-info">
+            <h4>${u.title}</h4>
+            <p>${u.subtitle}</p>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  ` : `<p style="color:var(--muted);margin-top:24px">Contenido en desarrollo. Disponible próximamente.</p>`;
+
+  dc.innerHTML = `
+    <div class="module-cover">
+      <div class="cover-eyebrow">${mod.level}</div>
+      <div class="cover-title">${mod.title}</div>
+      <div class="cover-desc">Selecciona una unidad para iniciar el contenido. Cada unidad incluye desarrollo teórico completo, base empírica y actividades de reflexión clínica.</div>
+      <div class="cover-stats">
+        <div class="cstat"><div class="cstat-val">${mod.hours}h</div><div class="cstat-lbl">Horas académicas</div></div>
+        <div class="cstat"><div class="cstat-val">${mod.units.length}</div><div class="cstat-lbl">Unidades</div></div>
+        <div class="cstat"><div class="cstat-val">${mod.units.filter(u=>isCompleted(u.id)).length}/${mod.units.length}</div><div class="cstat-lbl">Completadas</div></div>
+      </div>
+    </div>
+    <div class="block-label" style="margin-top:32px">Unidades del módulo</div>
+    ${unitsHtml}
+  `;
+}
+
+// ═══════════════════════════════════════════════
+// SHOW UNIT
+// ═══════════════════════════════════════════════
+function showUnit(mod, unit) {
+  state.currentModule = mod.id;
+  state.currentUnit = unit.id;
+  state.moduleOpen = mod.id;
+
+  document.getElementById('welcomeScreen').style.display = 'none';
+  const dc = document.getElementById('dynamicContent');
+  dc.style.display = 'block';
+
+  const unitIndex = mod.units.findIndex(u => u.id === unit.id);
+  const hasPrev = unitIndex > 0 || MODULES.findIndex(m => m.id === mod.id) > 0;
+  const hasNext = unitIndex < mod.units.length - 1;
+
+  document.getElementById('breadcrumb').innerHTML = `
+    <span>${mod.id}</span> <span>›</span> <span>${unit.id}</span> <span>›</span> <strong>${unit.title}</strong>
+  `;
+  document.getElementById('btnPrev').style.display = unitIndex > 0 ? 'block' : 'none';
+  document.getElementById('btnNext').style.display = hasNext ? 'block' : 'none';
+
+  const done = isCompleted(unit.id);
+
+  dc.innerHTML = `
+    ${unit.content}
+    <div class="unit-nav">
+      <button class="mark-done-btn ${done ? 'done' : ''}" id="markDoneBtn" onclick="toggleDone('${unit.id}')">
+        ${done ? '✓ Completada' : '○ Marcar como completada'}
+      </button>
+      <div style="display:flex;gap:10px">
+        ${unitIndex > 0 ? `<button class="btn btn-ghost" onclick="navigate(-1)">← Anterior</button>` : ''}
+        ${hasNext ? `<button class="btn btn-primary" onclick="navigate(1)">Siguiente →</button>` : `<button class="btn btn-amber" onclick="showModuleOverview(MODULES.find(m=>m.id==='${mod.id}'))">Ver módulo completo</button>`}
+      </div>
+    </div>
+  `;
+
+  renderSidebar();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('content').scrollTop = 0;
+}
+
+function toggleDone(unitId) {
+  if (!isCompleted(unitId)) {
+    markComplete(unitId);
+    document.getElementById('markDoneBtn').className = 'mark-done-btn done';
+    document.getElementById('markDoneBtn').textContent = '✓ Completada';
+  }
+}
+
+// ═══════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════
+function navigate(dir) {
+  if (!state.currentModule || !state.currentUnit) return;
+  const mod = MODULES.find(m => m.id === state.currentModule);
+  const unitIndex = mod.units.findIndex(u => u.id === state.currentUnit);
+  const newIndex = unitIndex + dir;
+  if (newIndex >= 0 && newIndex < mod.units.length) {
+    showUnit(mod, mod.units[newIndex]);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// MOBILE
+// ═══════════════════════════════════════════════
+document.getElementById('menuToggle').onclick = () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+};
+document.getElementById('overlay').onclick = () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+};
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+renderSidebar();
+
+// Auto-open M1 on load
+state.moduleOpen = 'M1';
+state.currentModule = 'M1';
+renderSidebar();
+showModuleOverview(MODULES[0]);
+</script>
+</body>
+</html>
