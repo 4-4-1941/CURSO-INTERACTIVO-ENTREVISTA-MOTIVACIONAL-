@@ -684,8 +684,8 @@ body {
       <span>Programa EM</span> <span>›</span> <strong>Selecciona un módulo</strong>
     </div>
     <div class="topbar-actions">
-      <button class="btn btn-ghost" id="btnPrev" onclick="navigate(-1)">← Anterior</button>
-      <button class="btn btn-primary" id="btnNext" onclick="navigate(1)">Siguiente →</button>
+      <button class="btn btn-ghost" onclick="navigate(-1)">← Anterior</button>
+      <button class="btn btn-primary" onclick="navigate(1)">Siguiente →</button>
     </div>
   </div>
 
@@ -717,9 +717,6 @@ body {
 // ═══════════════════════════════════════════════
 
 const MODULES = [
-  // ============================================
-  // MÓDULO 1 - BASES TEÓRICAS (COMPLETO)
-  // ============================================
   {
     id: 'M1',
     color: '#1B2B6B',
@@ -728,34 +725,6 @@ const MODULES = [
     hours: 32,
     unlocked: true,
     units: [
-      {
-        id: '1.1',
-        title: 'Historia y desarrollo de la EM',
-        subtitle: 'Del Drinker Project (1983) a la 3.ª edición (2012)',
-        done: false,
-        content: `
-          <div class="unit-header">
-            <div class="unit-eyebrow">Módulo 1 · Unidad 1.1</div>
-            <div class="unit-title">Historia y desarrollo de la Entrevista Motivacional</div>
-            <div class="unit-intro">La EM no emergió de una teoría a priori, sino de la observación clínica sistemática de qué conductas del terapeuta producían cambio en pacientes con problemas de alcohol. Comprender su génesis es comprender su lógica interna.</div>
-          </div>
-          <div class="content-block">
-            <div class="block-label">Origen y contexto histórico</div>
-            <p>La Entrevista Motivacional fue descrita por primera vez por <strong>William R. Miller</strong> en 1983 en el artículo <em>"Motivational Interviewing with Problem Drinkers"</em>, publicado en la revista Behavioural Psychotherapy. Miller observó, durante su trabajo en el Drinker's Check-Up Project en la Universidad de Nuevo México, que ciertos estilos de interacción terapéutica producían sistemáticamente más cambio que otros, independientemente de la orientación teórica del terapeuta.</p>
-            <p>El primer hallazgo contraintuitivo fue que <strong>la confrontación directa aumentaba la resistencia</strong> en lugar de reducirla, mientras que un estilo empático, no directivo y evocador producía mayor ambivalencia explorada y mayor discurso de cambio. Esto contrariaba la práctica dominante en tratamiento de adicciones de la época, que privilegiaba la confrontación y el quiebre de la negación.</p>
-            <div class="key-concept">
-              <div class="kc-label">Hallazgo fundacional</div>
-              En el estudio original de Miller et al. (1988), los terapeutas con mayor confrontación producían más resistencia verbal y peores resultados a 12 meses, mientras que los terapeutas con mayor empatía reflexiva producían mayor discurso de cambio y mejores tasas de abstinencia. La variable predictora no era la técnica, sino el <em>estilo relacional</em>.
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="block-label">Línea de tiempo del desarrollo</div>
-            <table class="data-table">
-              <thead><tr><th>Año</th><th>Hito</th><th>Relevancia clínica</th></tr></thead>
-              <tbody>
-                <tr><td><strong>1983</strong></td><td>Artículo fundacional de Miller en Behavioural Psychotherapy</td><td>Primera descripción sistemática del método</td></tr>
-                <tr><td><strong>1991</strong></td><td>1.ª edición del libro con Rollnick. Guilford Press</td><td>Formalización del modelo y difusión internacional</td></tr>
-                <tr><td><strong>1995</strong></td><td>Proyecto MATCH: mayor ensayo clínico en alcohol</td><td>EM comparable a TCC y 12 pasos en eficacia</td></tr>
-                <tr><td><strong>2002</strong></td><td>2.ª edición revisada. Integración del MTT</td><td>Incorporación formal de estadios de cambio</td></tr>
-                <tr><td><strong>2002</strong></td><td>Fundación de MINT (Motivational Interviewing Network of Trainers)</td><td>Estandarización internacional de la formación</td></tr>
-                <tr><td><strong>2009</strong></td><td>Desarrollo del MITI 3.1 (Moyers et al.)</td><td>Primera herramienta de fidelidad operacionaliza
+      { id: '1.1', title: 'Historia y desarrollo de la EM', subtitle: 'Del Drinker Project (1983) a la 3.ª edición (2012)', done: false, content: '<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.1</div><div class="unit-title">Historia y desarrollo de la Entrevista Motivacional</div><div class="unit-intro">La EM no emergió de una teoría a priori, sino de la observación clínica sistemática de qué conductas del terapeuta producían cambio en pacientes con problemas de alcohol.</div></div><div class="content-block"><div class="block-label">Origen y contexto histórico</div><p>Descrita por <strong>William R. Miller</strong> en 1983. El hallazgo fundacional fue que la confrontación aumentaba la resistencia, mientras que un estilo empático y evocador generaba más discurso de cambio.</p><div class="key-concept"><div class="kc-label">Hallazgo fundacional</div>Miller et al. (1988): los terapeutas con mayor empatía reflexiva lograban mejores resultados que los confrontativos.</div></div><div class="evidence-box"><div class="ev-label">📚 Referencias clave</div><div class="ev-item">Miller, W. R., & Rollnick, S. (2013). <em>Motivational interviewing: Helping people change</em> (3rd ed.). Guilford Press.</div></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">¿Qué implicación clínica tiene el hallazgo de que la confrontación aumenta la resistencia?</div><textarea class="refl-textarea" placeholder="Escribe tu reflexión..."></textarea></div>' },
+      { id: '1.2', title: 'Espíritu de la EM: PACE', subtitle: 'Colaboración, Aceptación, Compasión y Evocación', done: false, content: '<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.2</div><div class="unit-title">El espíritu de la Entrevista Motivacional: PACE</div><div class="unit-intro">El espíritu no es un adorno; es la condición de posibilidad de la técnica. Sin él, las herramientas se vuelven vacías.</div></div><div class="content-block"><div class="block-label">Los cuatro pilares</div><ul class="content-list"><li><strong>Colaboración:</strong> trabajar con, no hacer a.</li><li><strong>Aceptación:</strong> respeto incondicional y validación.</li><li><strong>Compasión:</strong> búsqueda activa del bienestar del paciente.</li><li><strong>Evocación:</strong> extraer la motivación interna, no imponerla.</li></ul></div><div class="evidence-box"><div class="ev-label">📚 Referencias clave</div><div class="ev-item">Miller & Rollnick (2013). Capítulo 2: El espíritu de la EM.</div></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">Redacta un diálogo breve donde se note colaboración sin imposición.</div><textarea class="refl-textarea" placeholder="Escribe tu diálogo..."></textarea></div>' },
+      { id: '1.3', title: 'OARS avanzadas', subtitle: 'Preguntas abiertas, afirmaciones, reflejos y resúmenes', done: false, content: '<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.3</div><div class="unit-title">OARS avanzadas: microhabilidades de la EM</div><div class="unit-intro">Las OARS son la base de la comunicación en EM. En nivel avanzado, su valor depende de la intención clínica y el momento.</div></div><div class="content-block"><div class="block-label">Microhabilidades en nivel avanzado</div><table class="data-table"><thead><tr><th>Habilidad</th><th>Uso básico</th><th>Uso avanzado</th></tr></thead><tbody><tr><td><strong>Preguntas abiertas</strong></td><td>Invitan a hablar</td><td>Exploran valores y discrepancias</td></tr><tr><td><strong>Afirmaciones</strong></td><td>Reconocen esfuerzo</
