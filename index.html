@@ -3,315 +3,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curso Entrevista Motivacional</title>
+<title>Entrevista Motivacional: De Aprendiz a Experto</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f5f5f5;color:#333;line-height:1.6}
-.header{background:#1a237e;color:white;padding:40px 20px;text-align:center}
-.header h1{font-size:28px;margin-bottom:10px}
-.header p{font-size:16px;opacity:0.9}
-.container{max-width:900px;margin:0 auto;padding:20px}
-.module{background:white;margin:20px 0;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
-.module-header{padding:20px;cursor:pointer;background:#283593;color:white;display:flex;justify-content:space-between;align-items:center}
-.module-header:hover{background:#3949ab}
-.module-title{font-size:18px;font-weight:bold}
-.module-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
-.module-content.active{max-height:5000px}
-.unit{padding:20px;border-top:1px solid #eee}
-.unit h3{color:#1a237e;margin-bottom:15px;font-size:16px}
-.unit p{margin-bottom:10px;font-size:14px}
-.unit ul{margin-left:20px;margin-bottom:10px}
-.unit li{margin-bottom:5px;font-size:14px}
-.highlight{background:#e3f2fd;padding:15px;border-left:4px solid #1a237e;margin:15px 0}
-.timeline{background:#f5f5f5;padding:15px;border-radius:5px;margin:15px 0}
-.timeline-item{padding:10px 0;border-bottom:1px solid #ddd}
-.timeline-item:last-child{border-bottom:none}
-.year{font-weight:bold;color:#ff6f00}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+  :root {
+    --cobalt: #1B2B6B; --cobalt-light: #2A3F8F; --cobalt-pale: #E8EBF7;
+    --amber: #D4A017; --amber-light: #F0C040; --amber-pale: #FBF4DC;
+    --ink: #1A1A2E; --graphite: #3D3D5C; --mist: #F8F6F1; --white: #FFFFFF;
+    --border: #D8D8E8; --m1: #1B2B6B; --m2: #2A5298; --m3: #1A6B4A; --m4: #7B2D8B; --m5: #C0392B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--mist); color: var(--ink); line-height: 1.6; }
+  .hero { background: var(--cobalt); color: white; padding: 60px 24px 40px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(212,160,23,0.18) 0%, transparent 70%); }
+  .hero-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; font-weight: 500; }
+  .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; max-width: 700px; margin-bottom: 24px; }
+  .hero h1 em { font-style: normal; color: var(--amber-light); }
+  .hero-desc { font-size: 16px; color: rgba(255,255,255,0.78); max-width: 580px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+  .meta-value { font-size: 16px; font-weight: 600; color: white; }
+  .framework { background: white; padding: 40px 24px; border-bottom: 1px solid var(--border); }
+  .section-label { font-family: 'Space Grotesk', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 16px; }
+  .framework h2 { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: var(--cobalt); margin-bottom: 20px; }
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 32px; }
+  .pillar { border-left: 3px solid var(--amber); padding: 16px 20px; background: var(--cobalt-pale); border-radius: 0 8px 8px 0; }
+  .pillar-num { font-size: 11px; letter-spacing: 2px; color: var(--amber); font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+  .pillar h4 { font-size: 14px; font-weight: 700; color: var(--cobalt); margin-bottom: 6px; }
+  .pillar p { font-size: 13px; color: var(--graphite); line-height: 1.5; }
+  .program-body { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+  .program-header { text-align: center; margin-bottom: 40px; }
+  .program-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: var(--cobalt); margin-bottom: 12px; }
+  .program-header p { color: var(--graphite); font-size: 15px; max-width: 560px; margin: 0 auto; }
+  .module { margin-bottom: 32px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,0.07); background: white; }
+  .module-header { padding: 24px; display: flex; align-items: center; gap: 20px; cursor: pointer; transition: background 0.2s; user-select: none; }
+  .module-header:hover { background: rgba(0,0,0,0.02); }
+  .module-header::after { content: '▼'; margin-left: auto; font-size: 12px; color: #999; transition: transform 0.3s; }
+  .module-header.active::after { transform: rotate(180deg); }
+  .module-badge { min-width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: white; flex-shrink: 0; }
+  .module-meta { flex: 1; }
+  .module-level { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+  .module-title { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .module-subtitle { font-size: 13px; color: var(--graphite); }
+  .module-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease; padding: 0 24px; border-top: 1px solid var(--border); }
+  .module-body.active { max-height: 10000px; opacity: 1; padding: 24px; }
+  .unit { margin-bottom: 32px; }
+  .unit:last-child { margin-bottom: 0; }
+  .unit h3 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--cobalt); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--amber-pale); }
+  .unit p { margin-bottom: 12px; color: var(--graphite); font-size: 14px; line-height: 1.7; }
+  .unit ul { margin: 12px 0; padding-left: 20px; }
+  .unit li { margin-bottom: 8px; color: var(--graphite); font-size: 14px; line-height: 1.6; }
+  .highlight-box { background: var(--cobalt-pale); border-left: 4px solid var(--cobalt); padding: 16px; margin: 16px 0; border-radius: 0 8px 8px 0; font-size: 14px; color: var(--ink); }
+  .highlight-box strong { color: var(--cobalt); }
+  .timeline { background: var(--mist); padding: 16px; border-radius: 8px; margin: 16px 0; }
+  .timeline-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-year { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--amber); font-size: 13px; margin-bottom: 4px; }
+  .timeline-text { font-size: 13px; color: var(--graphite); }
+  .reference { background: var(--amber-pale); padding: 12px 16px; border-radius: 8px; margin: 16px 0; font-size: 12px; color: var(--graphite); }
+  .reference strong { color: var(--ink); }
+  .m1 .module-badge { background: var(--m1); } .m1 .module-level { color: var(--m1); }
+  .m2 .module-badge { background: var(--m2); } .m2 .module-level { color: var(--m2); }
+  .m3 .module-badge { background: var(--m3); } .m3 .module-level { color: var(--m3); }
+  .m4 .module-badge { background: var(--m4); } .m4 .module-level { color: var(--m4); }
+  .m5 .module-badge { background: var(--m5); } .m5 .module-level { color: var(--m5); }
+  footer { background: var(--ink); color: rgba(255,255,255,0.5); text-align: center; padding: 24px; font-size: 12px; }
+  footer span { color: var(--amber); }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>Entrevista Motivacional: De Aprendiz a Experto</h1>
-  <p>Programa de formación basado en Miller & Rollnick (3.ª ed.)</p>
-</div>
+<header class="hero">
+  <div class="hero-eyebrow">Programa de Formación Especializada · Psicología Clínica</div>
+  <h1>Entrevista Motivacional:<br><em>De Aprendiz a Experto</em></h1>
+  <p class="hero-desc">Programa modular basado en Miller & Rollnick (3.ª ed.), estándares MINT y evaluación de fidelidad MITI 4.2.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><span class="meta-label">Módulos</span><span class="meta-value">5 Niveles</span></div>
+    <div class="meta-item"><span class="meta-label">Horas</span><span class="meta-value">160 h</span></div>
+    <div class="meta-item"><span class="meta-label">Evidencia</span><span class="meta-value">MINT · MITI 4.2</span></div>
+  </div>
+</header>
 
-<div class="container">
+<section class="framework">
+  <div class="section-label">Base epistemológica</div>
+  <h2>Fundamentos conceptuales</h2>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-num">Pilar 01</div><h4>Espíritu PACE</h4><p>Asociación, Aceptación, Compasión y Evocación.</p></div>
+    <div class="pillar"><div class="pillar-num">Pilar 02</div><h4>Modelo Transteórico</h4><p>Prochaska & DiClemente: fases de cambio.</p></div>
+    <div class="pillar"><div class="pillar-num">Pilar 03</div><h4>Cuatro Procesos</h4><p>Vincular, Enfocar, Evocar y Planificar.</p></div>
+    <div class="pillar"><div class="pillar-num">Pilar 04</div><h4>Neurociencia</h4><p>Regulación prefrontal y dopaminérgica.</p></div>
+    <div class="pillar"><div class="pillar-num">Pilar 05</div><h4>Fidelidad MITI</h4><p>Estándar de evaluación clínica.</p></div>
+  </div>
+</section>
 
-  <div class="module">
+<main class="program-body">
+  <div class="program-header">
+    <div class="section-label">Estructura curricular</div>
+    <h2>Cinco módulos de formación progresiva</h2>
+    <p>Contenido académico completo basado en evidencia.</p>
+  </div>
+
+  <!-- M1 -->
+  <div class="module m1">
     <div class="module-header" onclick="toggleModule(this)">
-      <span class="module-title">Módulo 1: Bases Teóricas y Espíritu de la EM</span>
-      <span>▼</span>
+      <div class="module-badge">M1</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Aprendiz</div>
+        <div class="module-title">Bases Teóricas y Espíritu de la EM</div>
+        <div class="module-subtitle">8 Unidades · 32 Horas</div>
+      </div>
     </div>
-    <div class="module-content">
-      
+    <div class="module-body">
       <div class="unit">
         <h3>1.1 Historia y desarrollo de la EM</h3>
-        <p>La Entrevista Motivacional surgió de la observación clínica de William R. Miller en 1982, quien trabajaba con personas con problemas de alcohol. Descubrió que:</p>
-        <ul>
-          <li><strong>La confrontación no funciona:</strong> Terapeutas más confrontacionales obtenían peores resultados</li>
-          <li><strong>La empatía predice éxito:</strong> Terapeutas empáticos lograban mayor reducción del consumo</li>
-          <li><strong>El estilo del terapeuta importa:</strong> Puede facilitar o dificultar el cambio</li>
-        </ul>
-        <div class="highlight">
-          <strong>Definición actual (Miller & Rollnick, 2013):</strong> "La EM es un estilo de comunicación colaborativo, orientado a la meta, con particular atención al lenguaje del cambio. Está diseñado para fortalecer la motivación personal y el compromiso con el cambio."
-        </div>
+        <p>La EM surgió en 1982 de la observación clínica de William R. Miller con personas con problemas de alcohol. Descubrió que los terapeutas más confrontacionales obtenían peores resultados, mientras que la empatía predecía el éxito. La EM evolucionó de un enfoque específico para adicciones a un estilo de comunicación universal.</p>
         <div class="timeline">
-          <div class="timeline-item"><span class="year">1991:</span> Primera edición - enfoque en adicciones</div>
-          <div class="timeline-item"><span class="year">2002:</span> Segunda edición - introduce el "Espíritu" PACE</div>
-          <div class="timeline-item"><span class="year">2013:</span> Tercera edición - modelo de 4 procesos</div>
+          <div class="timeline-item"><div class="timeline-year">1991</div><div class="timeline-text">Primera edición: enfoque en adicciones.</div></div>
+          <div class="timeline-item"><div class="timeline-year">2002</div><div class="timeline-text">Segunda edición: introduce el espíritu PACE.</div></div>
+          <div class="timeline-item"><div class="timeline-year">2013</div><div class="timeline-text">Tercera edición: consolida los 4 procesos.</div></div>
         </div>
       </div>
-
       <div class="unit">
         <h3>1.2 Diferenciación conceptual</h3>
-        <p><strong>Lo que NO es la EM:</strong></p>
-        <ul>
-          <li>No es terapia no directiva pura (tiene dirección hacia el cambio)</li>
-          <li>No es confrontación agresiva</li>
-          <li>No es un conjunto de técnicas mecánicas</li>
-          <li>No es manipulación</li>
-          <li>No es exclusiva para adicciones</li>
-        </ul>
-        <p><strong>Lo que SÍ es:</strong></p>
-        <ul>
-          <li>Colaborativa (terapeuta y cliente como socios)</li>
-          <li>Evocadora (extrae motivación interna)</li>
-          <li>Autónoma (respeta la decisión del cliente)</li>
-          <li>Orientada a la meta (facilita el cambio)</li>
-        </ul>
+        <p>La EM no es terapia no directiva pura (tiene dirección hacia el cambio), no es confrontación agresiva, ni un conjunto de técnicas mecánicas. Es un estilo colaborativo, evocador y autónomo, diseñado para fortalecer la motivación intrínseca.</p>
       </div>
-
       <div class="unit">
         <h3>1.3 El espíritu PACE</h3>
-        <p>El espíritu de la EM es la actitud fundamental que subyace a todas las técnicas:</p>
-        <ul>
-          <li><strong>P - Partnership (Asociación):</strong> Colaboración entre dos expertos. El terapeuta es experto en procesos de cambio, el cliente es experto en su vida.</li>
-          <li><strong>A - Acceptance (Aceptación):</strong> Incluye consideración positiva incondicional, afirmación, reflexión empática y apoyo a la autoeficacia.</li>
-          <li><strong>C - Compassion (Compasión):</strong> Compromiso activo con el bienestar del cliente, priorizando sus necesidades.</li>
-          <li><strong>E - Evocation (Evocación):</strong> Los motivos para el cambio ya están dentro del cliente. El terapeuta los extrae, no los instala.</li>
-        </ul>
-        <div class="highlight">
-          <strong>Sin el espíritu PACE, las técnicas de EM se vuelven mecánicas y pueden percibirse como manipuladoras.</strong>
-        </div>
+        <p>Es la actitud fundamental de la EM. <strong>Partnership (Asociación):</strong> colaboración entre dos expertos. <strong>Acceptance (Aceptación):</strong> valoración incondicional y empatía. <strong>Compassion (Compasión):</strong> priorizar el bienestar del cliente. <strong>Evocation (Evocación):</strong> extraer la motivación interna, no instalarla.</p>
+        <div class="highlight-box"><strong>Clave:</strong> Sin el espíritu PACE, las técnicas se vuelven manipuladoras.</div>
       </div>
-
       <div class="unit">
         <h3>1.4 Modelo Transteórico del Cambio</h3>
-        <p>Prochaska y DiClemente (1983) describieron las etapas del cambio:</p>
-        <div class="timeline">
-          <div class="timeline-item"><span class="year">1. Precontemplación:</span> No reconoce el problema. "No tengo un problema con el alcohol."</div>
-          <div class="timeline-item"><span class="year">2. Contemplación:</span> Reconoce el problema pero hay ambivalencia. "Sé que bebo mucho, pero no estoy seguro de querer dejarlo."</div>
-          <div class="timeline-item"><span class="year">3. Preparación:</span> Intención de cambiar pronto. "He estado pensando en reducir mi consumo."</div>
-          <div class="timeline-item"><span class="year">4. Acción:</span> Modificación activa del comportamiento. "Dejé de fumar hace dos semanas."</div>
-          <div class="timeline-item"><span class="year">5. Mantenimiento:</span> Consolidación del cambio. "Llevo 6 meses sin beber."</div>
-        </div>
-        <p><strong>Implicación clínica:</strong> La estrategia de intervención debe adaptarse a la etapa del cliente.</p>
+        <p>Prochaska y DiClemente (1983) describieron las etapas: <strong>Precontemplación</strong> (no ve el problema), <strong>Contemplación</strong> (ambivalencia), <strong>Preparación</strong> (intención de actuar), <strong>Acción</strong> (cambio activo) y <strong>Mantenimiento</strong> (consolidación). La intervención debe adaptarse a la etapa.</p>
       </div>
-
       <div class="unit">
         <h3>1.5 Neurociencia de la motivación</h3>
-        <p>La investigación en neurociencia explica por qué la EM es efectiva:</p>
-        <ul>
-          <li><strong>Sistema dopaminérgico:</strong> La dopamina en el núcleo accumbens genera motivación al anticipar recompensas</li>
-          <li><strong>Corteza prefrontal:</strong> La EM activa áreas de autorreflexión y toma de decisiones</li>
-          <li><strong>Plasticidad cerebral:</strong> El cerebro puede formar nuevas asociaciones entre comportamientos y valores</li>
-        </ul>
-        <div class="highlight">
-          Estudios de neuroimagen muestran que la EM activa áreas de reflexión, no de defensa o resistencia.
-        </div>
+        <p>La EM activa el sistema dopaminérgico mesolímbico (recompensa) y la corteza prefrontal (toma de decisiones y autorreflexión). Estudios de neuroimagen demuestran que la EM reduce la activación de áreas defensivas y promueve la plasticidad neuronal para nuevos comportamientos.</p>
       </div>
-
       <div class="unit">
-        <h3>1.6 Resistencia y Sustain Talk</h3>
-        <p>La EM ha evolucionado en su conceptualización de la "resistencia":</p>
-        <ul>
-          <li><strong>Antes:</strong> Se hablaba de "resistencia del cliente" (como si fuera un problema del paciente)</li>
-          <li><strong>Ahora:</strong> Se habla de "discordancia" (producto de la interacción terapeuta-cliente)</li>
-        </ul>
-        <p><strong>Tipos de lenguaje:</strong></p>
-        <ul>
-          <li><strong>Sustain Talk:</strong> Argumentos a favor de mantener el status quo. "No puedo dejar de fumar, me relaja."</li>
-          <li><strong>Change Talk:</strong> Argumentos a favor del cambio. "Sé que fumar está afectando mi salud."</li>
-        </ul>
-        <div class="highlight">
-          <strong>Principio clave:</strong> Cuanto más argumenta el terapeuta a favor del cambio, más argumenta el cliente en contra. La EM invierte esta dinámica.
-        </div>
+        <h3>1.6 Resistencia, discordancia y Sustain Talk</h3>
+        <p>La "resistencia" se re conceptualiza como <strong>discordancia</strong> interpersonal. El <strong>Sustain Talk</strong> (argumentos para no cambiar) aumenta cuando el terapeuta confronta. El <strong>Change Talk</strong> (argumentos para cambiar) debe ser evocado por el cliente.</p>
       </div>
-
       <div class="unit">
-        <h3>1.7 Evidencia de eficacia</h3>
-        <p>Meta-análisis fundamentales respaldan la EM:</p>
-        <ul>
-          <li><strong>Rubak et al. (2005):</strong> Revisión de 72 estudios. La EM fue efectiva en el 72% de los casos.</li>
-          <li><strong>Lundahl et al. (2013):</strong> Confirmó eficacia en adicciones, salud mental y comportamiento de salud.</li>
-        </ul>
-        <p><strong>Áreas con mayor evidencia:</strong></p>
-        <ul>
-          <li>Adicciones (alcohol, tabaco, otras sustancias)</li>
-          <li>Salud (adherencia a tratamiento, diabetes, pérdida de peso)</li>
-          <li>Salud mental (depresión, ansiedad)</li>
-          <li>Comportamiento (ejercicio, alimentación, sexo seguro)</li>
-        </ul>
+        <h3>1.7 Meta-análisis y evidencia de eficacia</h3>
+        <p>Rubak et al. (2005) y Lundahl et al. (2013) confirmaron la eficacia de la EM en adicciones, salud crónica, salud mental y comportamiento. Es una de las intervenciones breves con mayor respaldo empírico a nivel mundial.</p>
       </div>
-
       <div class="unit">
         <h3>1.8 Ética en la EM</h3>
-        <p>Consideraciones éticas fundamentales:</p>
-        <ul>
-          <li><strong>Autonomía vs. Paternalismo:</strong> La EM respeta la autonomía mientras mantiene dirección hacia el cambio</li>
-          <li><strong>Riesgo de manipulación:</strong> Sin el espíritu PACE, puede usarse para imponer la agenda del terapeuta</li>
-          <li><strong>Consentimiento informado:</strong> Explicar qué es la EM y su propósito</li>
-          <li><strong>Confidencialidad:</strong> Manejo ético de la información evocada</li>
-        </ul>
-        <div class="highlight">
-          <strong>Principio ético:</strong> La EM debe evocar la motivación genuina del cliente, no imponer agendas externas.
-        </div>
+        <p>La EM exige un equilibrio entre dirección y autonomía. El riesgo ético principal es usar las técnicas para manipular al cliente hacia la agenda del terapeuta. El consentimiento informado y el respeto a la autodeterminación son innegociables.</p>
       </div>
-
     </div>
   </div>
 
-  <div class="module">
+  <!-- M2 -->
+  <div class="module m2">
     <div class="module-header" onclick="toggleModule(this)">
-      <span class="module-title">Módulo 2: Habilidades OARS</span>
-      <span>▼</span>
+      <div class="module-badge">M2</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Iniciado</div>
+        <div class="module-title">Habilidades OARS en Profundidad</div>
+        <div class="module-subtitle">5 Unidades · 28 Horas</div>
+      </div>
     </div>
-    <div class="module-content">
+    <div class="module-body">
       <div class="unit">
-        <h3>2.1 Preguntas abiertas</h3>
-        <p>Invitan a la reflexión sin dirigir la respuesta. Ejemplos:</p>
-        <ul>
-          <li>"¿Qué te preocupa de tu situación actual?"</li>
-          <li>"¿Cómo te imaginas tu vida si las cosas siguen igual?"</li>
-          <li>"¿Qué importancia tiene para ti este cambio?"</li>
-        </ul>
+        <h3>2.1 Preguntas abiertas estratégicas</h3>
+        <p>Invitan a la reflexión sin dirigir. Ejemplos: "¿Qué te preocupa de tu situación actual?", "¿Cómo te imaginas tu vida si las cosas siguen igual?". Evitan el interrogatorio y fomentan la exploración.</p>
       </div>
       <div class="unit">
         <h3>2.2 Afirmaciones</h3>
-        <p>Reconocen fortalezas y esfuerzos del cliente:</p>
-        <ul>
-          <li>"Valoro mucho que hayas venido hoy"</li>
-          <li>"Se nota que has pensado seriamente en esto"</li>
-          <li>"Admiro tu honestidad al hablar de esto"</li>
-        </ul>
+        <p>Reconocen fortalezas, esfuerzos y valores. "Valoro que hayas venido hoy", "Se nota que has pensado seriamente en esto". Construyen autoeficacia y alianza terapéutica.</p>
       </div>
       <div class="unit">
-        <h3>2.3 Reflejos simples y complejos</h3>
-        <p><strong>Reflejo simple:</strong> Repetir o parafrasear el contenido.</p>
-        <p><strong>Reflejo complejo:</strong> Añadir significado, emoción o dirección implícita.</p>
-        <ul>
-          <li>Cliente: "No sé si puedo dejar de fumar."</li>
-          <li>Reflejo simple: "Tienes dudas sobre si puedes dejarlo."</li>
-          <li>Reflejo complejo: "Te preocupa no tener la fuerza necesaria para lograrlo."</li>
-        </ul>
+        <h3>2.3 Reflejos simples</h3>
+        <p>Repetición o paráfrasis del contenido manifiesto. Cliente: "Estoy cansado de intentar". Terapeuta: "Te sientes agotado de tantos intentos". Valida y demuestra escucha activa.</p>
       </div>
       <div class="unit">
-        <h3>2.4 Resúmenes</h3>
-        <p>Vinculan contenidos y facilitan transiciones:</p>
-        <ul>
-          <li><strong>Recopilación:</strong> "Hemos hablado de varios temas hoy..."</li>
-          <li><strong>Vinculación:</strong> "Por un lado dices que..., pero por otro..."</li>
-          <li><strong>Transición:</strong> "Con todo esto en mente, ¿qué te gustaría explorar ahora?"</li>
-        </ul>
+        <h3>2.4 Reflejos complejos</h3>
+        <p>Añaden significado, emoción o dirección implícita. <strong>Amplificación:</strong> "Es lo más importante para ti". <strong>Doble reflejo:</strong> "Por un lado quieres cambiar, pero por otro temes fallar". <strong>Reflejo de sentimiento:</strong> "Te frustra no lograrlo".</p>
+      </div>
+      <div class="unit">
+        <h3>2.5 Resúmenes</h3>
+        <p>Vinculan contenidos y facilitan transiciones. <strong>Recopilación:</strong> "Hemos hablado de...". <strong>Vinculación:</strong> "Dices que X, pero también que Y...". <strong>Transición:</strong> "Con esto en mente, ¿qué sigue?".</p>
       </div>
     </div>
   </div>
 
-  <div class="module">
+  <!-- M3 -->
+  <div class="module m3">
     <div class="module-header" onclick="toggleModule(this)">
-      <span class="module-title">Módulo 3: Los Cuatro Procesos</span>
-      <span>▼</span>
+      <div class="module-badge">M3</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Competente</div>
+        <div class="module-title">Los Cuatro Procesos de la EM</div>
+        <div class="module-subtitle">6 Unidades · 36 Horas</div>
+      </div>
     </div>
-    <div class="module-content">
+    <div class="module-body">
       <div class="unit">
-        <h3>3.1 Vincular (Engaging)</h3>
-        <p>Construir la alianza terapéutica. Establecer confianza y conexión antes de abordar el cambio.</p>
+        <h3>3.1 Proceso de Vincular (Engaging)</h3>
+        <p>Construcción de la alianza terapéutica. Establecer confianza, conexión y seguridad antes de abordar el cambio. Sin vinculación, los procesos posteriores fracasan.</p>
       </div>
       <div class="unit">
-        <h3>3.2 Enfocar (Focusing)</h3>
-        <p>Identificar la dirección del cambio. Pactar agenda y metas compartidas.</p>
+        <h3>3.2 Proceso de Enfocar (Focusing)</h3>
+        <p>Identificar la dirección del cambio. Pactar una agenda compartida y un mapa de metas. Mantener el rumbo sin imponer la agenda del terapeuta.</p>
       </div>
       <div class="unit">
-        <h3>3.3 Evocar (Evoking)</h3>
-        <p>Extraer el Change Talk del cliente. Usar el acrónimo DARN-CAT:</p>
-        <ul>
-          <li><strong>D</strong>eseo: "Quiero cambiar"</li>
-          <li><strong>A</strong>bilidad: "Puedo hacerlo"</li>
-          <li><strong>R</strong>azones: "Porque me importa mi salud"</li>
-          <li><strong>N</strong>ecesidad: "Tengo que hacerlo"</li>
-          <li><strong>C</strong>ompromiso: "Voy a intentarlo"</li>
-          <li><strong>A</strong>ctivación: "Estoy listo"</li>
-          <li><strong>T</strong>oma de pasos: "Ya empecé a..."</li>
-        </ul>
+        <h3>3.3 Proceso de Evocar (Evoking)</h3>
+        <p>Extraer el Change Talk del cliente usando el acrónimo <strong>DARN-CAT</strong>: Deseo, Habilidad, Razones, Necesidad (preparatorio) y Compromiso, Activación, Toma de pasos (movilizador).</p>
       </div>
       <div class="unit">
-        <h3>3.4 Planificar (Planning)</h3>
-        <p>Desarrollar un plan concreto de cambio cuando el cliente está listo.</p>
+        <h3>3.4 Proceso de Planificar (Planning)</h3>
+        <p>Desarrollar un plan concreto de cambio cuando el cliente muestra suficiente Change Talk movilizador. Transición fluida de la evocación a la acción.</p>
+      </div>
+      <div class="unit">
+        <h3>3.5 Manejo del Sustain Talk</h3>
+        <p>Estrategias para responder al lenguaje de mantenimiento: reflejo simple, cambio de foco, reencuadre y énfasis en la autonomía. Nunca confrontar directamente.</p>
+      </div>
+      <div class="unit">
+        <h3>3.6 Integración y flexibilidad</h3>
+        <p>Los cuatro procesos no son estrictamente lineales. El clínico experto navega fluidamente entre ellos, volviendo a vincular o enfocar cuando surge discordancia.</p>
       </div>
     </div>
   </div>
 
-  <div class="module">
+  <!-- M4 -->
+  <div class="module m4">
     <div class="module-header" onclick="toggleModule(this)">
-      <span class="module-title">Módulo 4: Contextos Especializados</span>
-      <span>▼</span>
+      <div class="module-badge">M4</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Avanzado</div>
+        <div class="module-title">EM en Contextos Clínicos Especializados</div>
+        <div class="module-subtitle">5 Unidades · 36 Horas</div>
+      </div>
     </div>
-    <div class="module-content">
+    <div class="module-body">
       <div class="unit">
         <h3>4.1 EM con adolescentes</h3>
-        <p>Adaptar el tono, considerar el rol de los padres, respetar la autonomía en desarrollo.</p>
+        <p>Adaptar el tono, considerar el rol de los padres, respetar la autonomía en desarrollo y trabajar con la motivación intrínseca propia de la etapa evolutiva.</p>
       </div>
       <div class="unit">
         <h3>4.2 EM en atención primaria</h3>
-        <p>Intervenciones breves de 15-20 minutos para manejo de enfermedades crónicas.</p>
+        <p>Intervenciones breves (15-20 minutos) para manejo de enfermedades crónicas, adherencia a tratamiento y prevención. Uso del modelo FRAMES.</p>
       </div>
       <div class="unit">
         <h3>4.3 EM en salud mental</h3>
-        <p>Trabajar con comorbilidad, medicación y trastornos psiquiátricos.</p>
+        <p>Trabajo con comorbilidad, medicación y trastornos psiquiátricos. Integración con el manejo de síntomas y la recuperación funcional.</p>
+      </div>
+      <div class="unit">
+        <h3>4.4 Integración con TCC</h3>
+        <p>Combinación de la EM con Terapia Cognitivo-Conductual. La EM prepara la motivación; la TCC proporciona las habilidades de afrontamiento.</p>
+      </div>
+      <div class="unit">
+        <h3>4.5 EM en contextos forenses</h3>
+        <p>Trabajo con mandatos judiciales y resistencia. Manejo de la autoridad externa y evocación de la motivación interna para el cumplimiento normativo.</p>
       </div>
     </div>
   </div>
 
-  <div class="module">
+  <!-- M5 -->
+  <div class="module m5">
     <div class="module-header" onclick="toggleModule(this)">
-      <span class="module-title">Módulo 5: Supervisión y Certificación</span>
-      <span>▼</span>
+      <div class="module-badge">M5</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Experto</div>
+        <div class="module-title">Supervisión, Formación de Formadores y Práctica Experta</div>
+        <div class="module-subtitle">4 Unidades · 28 Horas</div>
+      </div>
     </div>
-    <div class="module-content">
+    <div class="module-body">
       <div class="unit">
-        <h3>5.1 Código MITI 4.2</h3>
-        <p>Evaluación de fidelidad con global scores (1-5) y behavior counts. Competencia: Global ≥ 4.0.</p>
+        <h3>5.1 Código MITI 4.2.1</h3>
+        <p>Evaluación de fidelidad con Global Scores (Asociación, Autonomía, Empatía, Dirección) y Behavior Counts (preguntas, reflejos, Change Talk). Competencia: Global ≥ 4.0.</p>
       </div>
       <div class="unit">
         <h3>5.2 Supervisión clínica</h3>
-        <p>Retroalimentación basada en codificación MITI para mejorar la práctica.</p>
+        <p>Retroalimentación basada en codificación MITI. Uso de grabaciones de sesión para identificar fortalezas y áreas de mejora en la práctica clínica.</p>
       </div>
       <div class="unit">
         <h3>5.3 Certificación MINT</h3>
-        <p>Estándares internacionales para formadores de Entrevista Motivacional.</p>
+        <p>Estándares internacionales del Motivational Interviewing Network of Trainers (MINT). Requisitos para convertirse en formador certificado y mantener la credencial.</p>
+      </div>
+      <div class="unit">
+        <h3>5.4 Implementación organizacional</h3>
+        <p>Estrategias para sostener la EM en organizaciones: liderazgo, cultura clínica, supervisión continua y evaluación de resultados a largo plazo.</p>
       </div>
     </div>
   </div>
 
-</div>
+</main>
 
-<script>
-function toggleModule(header) {
-  const content = header.nextElementSibling;
-  const arrow = header.querySelector('span:last-child');
-  
-  if (content.classList.contains('active')) {
-    content.classList.remove('active');
-    arrow.textContent = '▼';
-  } else {
-    document.querySelectorAll('.module-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.module-header span:last-child').forEach(a => a.textContent = '▼');
-    content.classList.add('active');
-    arrow.textContent = '▲';
-  }
-}
-</script>
-
-</body>
-  </html>
+<footer>
+  <p>© 2026 Programa de Formación en Entrevista Motivacional · <span>De Aprendiz a Experto</span></p>
+  <p style="margin-top:8px;font-size:11px">Basado en Miller & Rollnick (3.ª ed.) · Estándares MINT · MITI
