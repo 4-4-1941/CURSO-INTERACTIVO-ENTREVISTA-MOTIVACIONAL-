@@ -3,728 +3,421 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EM Capacitación · Programa Interactivo</title>
+<title>Programa de Formación en Entrevista Motivacional</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
-
-:root {
-  --cobalt: #1B2B6B;
-  --cobalt-mid: #2A3F8F;
-  --cobalt-pale: #EEF1FB;
-  --amber: #C8960A;
-  --amber-bg: #FBF4DC;
-  --ink: #111827;
-  --graphite: #4B5563;
-  --muted: #9CA3AF;
-  --border: #E5E7EB;
-  --mist: #F9FAFB;
-  --white: #FFFFFF;
-  --success: #065F46;
-  --success-bg: #ECFDF5;
-  --sidebar-w: 300px;
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--mist);
-  color: var(--ink);
-  display: flex;
-  min-height: 100vh;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-/* ── SIDEBAR ── */
-#sidebar {
-  width: var(--sidebar-w);
-  min-width: var(--sidebar-w);
-  background: var(--cobalt);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 0; left: 0;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 100;
-  transition: transform 0.3s;
-}
-
-.sidebar-brand {
-  padding: 24px 20px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.brand-eyebrow {
-  font-size: 9px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--amber);
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-.brand-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: white;
-  line-height: 1.3;
-}
-
-.sidebar-progress {
-  padding: 16px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.prog-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 8px;
-}
-.prog-bar-track {
-  background: rgba(255,255,255,0.15);
-  border-radius: 4px;
-  height: 4px;
-  overflow: hidden;
-}
-.prog-bar-fill {
-  background: var(--amber);
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.5s ease;
-}
-.prog-text {
-  font-size: 11px;
-  color: rgba(255,255,255,0.6);
-  margin-top: 6px;
-}
-.prog-text span { color: white; font-weight: 600; }
-
-.sidebar-nav { flex: 1; padding: 12px 0; }
-
-.module-group { margin-bottom: 4px; }
-
-.module-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.15s;
-}
-.module-btn:hover { background: rgba(255,255,255,0.06); }
-.module-btn.active { background: rgba(255,255,255,0.1); }
-
-.mod-dot {
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  color: white;
-  flex-shrink: 0;
-}
-.mod-info { flex: 1; }
-.mod-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
-  line-height: 1.3;
-}
-.mod-status {
-  font-size: 10px;
-  color: rgba(255,255,255,0.45);
-  margin-top: 1px;
-}
-.mod-lock { font-size: 13px; opacity: 0.4; }
-
-.unit-list-sidebar {
-  display: none;
-  padding: 4px 0 8px 58px;
-}
-.unit-list-sidebar.open { display: block; }
-
-.unit-btn-sidebar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 6px 16px 6px 0;
-  cursor: pointer;
-  text-align: left;
-  border-radius: 6px;
-  transition: background 0.15s;
-}
-.unit-btn-sidebar:hover { background: rgba(255,255,255,0.07); }
-.unit-btn-sidebar.active { background: rgba(255,255,255,0.12); }
-
-.unit-check {
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.3);
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px;
-  color: transparent;
-  transition: all 0.2s;
-}
-.unit-check.done {
-  background: var(--amber);
-  border-color: var(--amber);
-  color: white;
-}
-.unit-text-sb {
-  font-size: 11.5px;
-  color: rgba(255,255,255,0.65);
-  line-height: 1.35;
-}
-.unit-btn-sidebar.active .unit-text-sb { color: white; }
-
-/* ── MAIN ── */
-#main {
-  margin-left: var(--sidebar-w);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* TOP BAR */
-.topbar {
-  background: white;
-  border-bottom: 1px solid var(--border);
-  padding: 14px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-.topbar-breadcrumb {
-  font-size: 13px;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.topbar-breadcrumb strong { color: var(--ink); }
-.topbar-actions { display: flex; gap: 10px; }
-
-.btn {
-  padding: 8px 18px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.15s;
-  font-family: 'Inter', sans-serif;
-}
-.btn-ghost {
-  background: var(--mist);
-  color: var(--graphite);
-  border: 1px solid var(--border);
-}
-.btn-ghost:hover { background: var(--border); }
-.btn-primary {
-  background: var(--cobalt);
-  color: white;
-}
-.btn-primary:hover { background: var(--cobalt-mid); }
-.btn-amber {
-  background: var(--amber);
-  color: white;
-}
-.btn-amber:hover { opacity: 0.9; }
-
-/* CONTENT AREA */
-#content {
-  flex: 1;
-  padding: 48px 56px;
-  max-width: 900px;
-}
-
-/* MODULE COVER */
-.module-cover {
-  background: var(--cobalt);
-  color: white;
-  border-radius: 16px;
-  padding: 48px;
-  margin-bottom: 40px;
-  position: relative;
-  overflow: hidden;
-}
-.module-cover::before {
-  content: '';
-  position: absolute;
-  top: -80px; right: -80px;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,150,10,0.2) 0%, transparent 70%);
-}
-.cover-eyebrow {
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--amber);
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-.cover-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-.cover-desc {
-  font-size: 15px;
-  color: rgba(255,255,255,0.75);
-  max-width: 600px;
-  line-height: 1.7;
-  margin-bottom: 28px;
-}
-.cover-stats {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-.cstat { }
-.cstat-val {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--amber);
-}
-.cstat-lbl {
-  font-size: 11px;
-  color: rgba(255,255,255,0.5);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
-/* UNIT CONTENT */
-.unit-content { display: none; }
-.unit-content.active { display: block; }
-
-.unit-header {
-  margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 2px solid var(--border);
-}
-.unit-eyebrow {
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--amber);
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.unit-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.25;
-  margin-bottom: 10px;
-}
-.unit-intro {
-  font-size: 15.5px;
-  color: var(--graphite);
-  line-height: 1.75;
-  font-style: italic;
-  border-left: 3px solid var(--amber);
-  padding-left: 16px;
-}
-
-/* CONTENT BLOCKS */
-.content-block {
-  margin-bottom: 32px;
-}
-.block-label {
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--cobalt);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.block-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.content-block p {
-  color: var(--graphite);
-  line-height: 1.8;
-  margin-bottom: 12px;
-  font-size: 15px;
-}
-.content-block p:last-child { margin-bottom: 0; }
-
-.content-block strong { color: var(--ink); font-weight: 600; }
-
-.key-concept {
-  background: var(--cobalt-pale);
-  border-left: 3px solid var(--cobalt);
-  border-radius: 0 8px 8px 0;
-  padding: 16px 20px;
-  margin: 16px 0;
-  font-size: 14.5px;
-  color: var(--ink);
-  line-height: 1.65;
-}
-.key-concept .kc-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--cobalt);
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.evidence-box {
-  background: var(--amber-bg);
-  border: 1px solid #E8C840;
-  border-radius: 10px;
-  padding: 18px 20px;
-  margin: 20px 0;
-}
-.ev-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--amber);
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.ev-item {
-  font-size: 13.5px;
-  color: var(--graphite);
-  padding: 6px 0;
-  border-bottom: 1px solid rgba(200,150,10,0.2);
-  line-height: 1.55;
-}
-.ev-item:last-child { border-bottom: none; }
-.ev-item cite { font-style: normal; font-weight: 600; color: var(--ink); }
-
-/* TABLE */
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-  margin: 16px 0;
-}
-.data-table th {
-  background: var(--cobalt);
-  color: white;
-  text-align: left;
-  padding: 10px 14px;
-  font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-family: 'Space Grotesk', sans-serif;
-}
-.data-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
-  color: var(--graphite);
-  vertical-align: top;
-  line-height: 1.5;
-}
-.data-table tr:nth-child(even) td { background: var(--cobalt-pale); }
-
-/* REFLECTION */
-.reflection-box {
-  background: var(--success-bg);
-  border: 1px solid #A7F3D0;
-  border-radius: 10px;
-  padding: 20px 24px;
-  margin-top: 28px;
-}
-.refl-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--success);
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-.refl-question {
-  font-size: 15px;
-  color: var(--ink);
-  font-weight: 500;
-  margin-bottom: 12px;
-  line-height: 1.55;
-}
-.refl-textarea {
-  width: 100%;
-  min-height: 100px;
-  border: 1px solid #A7F3D0;
-  border-radius: 8px;
-  padding: 12px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: var(--ink);
-  resize: vertical;
-  background: white;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.refl-textarea:focus { border-color: var(--success); }
-
-/* UNIT NAV */
-.unit-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 48px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-}
-.mark-done-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--success-bg);
-  color: var(--success);
-  border: 1.5px solid #A7F3D0;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: 'Inter', sans-serif;
-}
-.mark-done-btn:hover { background: #D1FAE5; }
-.mark-done-btn.done {
-  background: var(--success);
-  color: white;
-  border-color: var(--success);
-}
-
-/* MODULE OVERVIEW PAGE */
-.overview-page { display: none; }
-.overview-page.active { display: block; }
-
-.units-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 28px;
-}
-.unit-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 18px 20px;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-}
-.unit-card:hover {
-  border-color: var(--cobalt);
-  box-shadow: 0 4px 12px rgba(27,43,107,0.1);
-  transform: translateY(-1px);
-}
-.unit-card-num {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--cobalt);
-  min-width: 28px;
-}
-.unit-card-info h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 4px;
-  line-height: 1.3;
-}
-.unit-card-info p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.4;
-}
-.unit-card.done { border-color: #A7F3D0; background: var(--success-bg); }
-.unit-card.done .unit-card-num { color: var(--success); }
-
-/* LOCKED MODULE */
-.locked-module {
-  text-align: center;
-  padding: 80px 40px;
-  color: var(--muted);
-}
-.lock-icon { font-size: 48px; margin-bottom: 20px; opacity: 0.4; }
-.locked-module h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 20px;
-  color: var(--graphite);
-  margin-bottom: 10px;
-}
-.locked-module p { font-size: 14px; max-width: 400px; margin: 0 auto; }
-
-/* MENU TOGGLE */
-.menu-toggle {
-  display: none;
-  position: fixed;
-  top: 14px; left: 14px;
-  z-index: 200;
-  background: var(--cobalt);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  #sidebar { transform: translateX(-100%); }
-  #sidebar.open { transform: translateX(0); }
-  #main { margin-left: 0; }
-  .menu-toggle { display: block; }
-  #content { padding: 24px 20px; }
-  .topbar { padding: 14px 20px 14px 60px; }
-  .units-grid { grid-template-columns: 1fr; }
-  .cover-title { font-size: 24px; }
-}
-
-/* LIST STYLES in content */
-.content-list {
-  list-style: none;
-  margin: 12px 0;
-}
-.content-list li {
-  display: flex;
-  gap: 10px;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 14.5px;
-  color: var(--graphite);
-  line-height: 1.5;
-}
-.content-list li:last-child { border-bottom: none; }
-.content-list li::before {
-  content: '▸';
-  color: var(--amber);
-  flex-shrink: 0;
-  font-size: 12px;
-  padding-top: 2px;
-}
-
-.tag {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  background: var(--cobalt-pale);
-  color: var(--cobalt);
-  margin: 2px;
-}
-
-/* Overlay for mobile sidebar */
-#overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 99;
-}
-#overlay.show { display: block; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+  :root {
+    --cobalt: #1B2B6B; --cobalt-light: #2A3F8F; --cobalt-pale: #E8EBF7;
+    --amber: #D4A017; --amber-light: #F0C040; --amber-pale: #FBF4DC;
+    --ink: #1A1A2E; --graphite: #3D3D5C; --mist: #F8F6F1; --white: #FFFFFF;
+    --border: #D8D8E8; --m1: #1B2B6B; --m2: #2A5298; --m3: #1A6B4A; --m4: #7B2D8B; --m5: #C0392B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--mist); color: var(--ink); line-height: 1.6; }
+  .hero { background: var(--cobalt); color: white; padding: 80px 60px 60px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(212,160,23,0.18) 0%, transparent 70%); }
+  .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--amber) 0%, var(--amber-light) 60%, transparent 100%); }
+  .hero-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; font-weight: 500; }
+  .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; max-width: 700px; margin-bottom: 24px; }
+  .hero h1 em { font-style: normal; color: var(--amber-light); }
+  .hero-desc { font-size: 16px; color: rgba(255,255,255,0.78); max-width: 580px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-meta { display: flex; gap: 40px; flex-wrap: wrap; }
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+  .meta-value { font-size: 16px; font-weight: 600; color: white; }
+  .framework { background: white; padding: 60px; border-bottom: 1px solid var(--border); }
+  .section-label { font-family: 'Space Grotesk', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 16px; }
+  .framework h2 { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: var(--cobalt); margin-bottom: 20px; }
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 32px; }
+  .pillar { border-left: 3px solid var(--amber); padding: 16px 20px; background: var(--cobalt-pale); border-radius: 0 8px 8px 0; }
+  .pillar-num { font-size: 11px; letter-spacing: 2px; color: var(--amber); font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+  .pillar h4 { font-size: 14px; font-weight: 700; color: var(--cobalt); margin-bottom: 6px; }
+  .pillar p { font-size: 13px; color: var(--graphite); line-height: 1.5; }
+  .program-body { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+  .program-header { text-align: center; margin-bottom: 60px; }
+  .program-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: var(--cobalt); margin-bottom: 12px; }
+  .program-header p { color: var(--graphite); font-size: 15px; max-width: 560px; margin: 0 auto; }
+  .module { margin-bottom: 48px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,0.07); background: white; position: relative; }
+  .module-header { padding: 28px 36px; display: flex; align-items: flex-start; gap: 24px; cursor: pointer; transition: background 0.2s; }
+  .module-header:hover { background: rgba(0,0,0,0.02); }
+  .module-badge { min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: white; letter-spacing: 0.5px; flex-shrink: 0; }
+  .module-meta { flex: 1; }
+  .module-level { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+  .module-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.25; }
+  .module-subtitle { font-size: 13px; color: var(--graphite); }
+  .module-stats { display: flex; gap: 24px; flex-shrink: 0; align-items: center; }
+  .stat { text-align: center; }
+  .stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; }
+  .stat-lbl { font-size: 10px; color: #999; letter-spacing: 1px; text-transform: uppercase; }
+  .module-body { padding: 0 36px 32px; border-top: 1px solid var(--border); max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease; }
+  .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 28px; }
+  .col-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid; }
+  .unit-list { list-style: none; }
+  .unit-list li { padding: 10px 0; border-bottom: 1px solid #F0F0F0; font-size: 14px; color: var(--graphite); display: flex; gap: 10px; align-items: flex-start; line-height: 1.45; }
+  .unit-list li:last-child { border-bottom: none; }
+  .unit-num { font-size: 11px; font-weight: 700; min-width: 22px; padding-top: 1px; opacity: 0.6; }
+  .comp-list { list-style: none; }
+  .comp-list li { padding: 8px 12px; margin-bottom: 8px; border-radius: 6px; font-size: 13.5px; line-height: 1.45; display: flex; gap: 10px; align-items: flex-start; }
+  .eval-row { margin-top: 24px; padding: 16px 20px; border-radius: 8px; background: var(--cobalt-pale); display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .eval-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; color: var(--cobalt); flex-shrink: 0; }
+  .eval-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .eval-tag { background: var(--cobalt); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.5px; }
+  .m1 .module-badge { background: var(--m1); } .m1 .module-level, .m1 .stat-val, .m1 .col-label { color: var(--m1); } .m1 .col-label { border-color: var(--m1); } .m1 .comp-list li { background: #E8EBF7; }
+  .m2 .module-badge { background: var(--m2); } .m2 .module-level, .m2 .stat-val, .m2 .col-label { color: var(--m2); } .m2 .col-label { border-color: var(--m2); } .m2 .comp-list li { background: #E8F0FC; }
+  .m3 .module-badge { background: var(--m3); } .m3 .module-level, .m3 .stat-val, .m3 .col-label { color: var(--m3); } .m3 .col-label { border-color: var(--m3); } .m3 .comp-list li { background: #E6F4ED; } .m3 .eval-row { background: #E6F4ED; } .m3 .eval-label { color: var(--m3); } .m3 .eval-tag { background: var(--m3); }
+  .m4 .module-badge { background: var(--m4); } .m4 .module-level, .m4 .stat-val, .m4 .col-label { color: var(--m4); } .m4 .col-label { border-color: var(--m4); } .m4 .comp-list li { background: #F3E8F8; } .m4 .eval-row { background: #F3E8F8; } .m4 .eval-label { color: var(--m4); } .m4 .eval-tag { background: var(--m4); }
+  .m5 .module-badge { background: var(--m5); } .m5 .module-level, .m5 .stat-val, .m5 .col-label { color: var(--m5); } .m5 .col-label { border-color: var(--m5); } .m5 .comp-list li { background: #FDEDEB; } .m5 .eval-row { background: #FDEDEB; } .m5 .eval-label { color: var(--m5); } .m5 .eval-tag { background: var(--m5); }
+  .evidence-strip { background: var(--amber-pale); border-left: 4px solid var(--amber); padding: 14px 20px; border-radius: 0 8px 8px 0; margin-top: 20px; font-size: 13px; color: var(--graphite); line-height: 1.6; }
+  .evidence-strip strong { color: var(--ink); font-weight: 600; }
+  .competency-map { background: var(--cobalt); color: white; padding: 60px; margin-top: 20px; }
+  .competency-map h2 { font-family: 'Space Grotesk', sans-serif; font-size: 26px; margin-bottom: 8px; }
+  .competency-map .intro { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 40px; }
+  .comp-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .comp-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 20px; transition: background 0.2s; }
+  .comp-card:hover { background: rgba(255,255,255,0.13); }
+  .comp-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--amber-light); margin-bottom: 10px; }
+  .comp-card ul { list-style: none; }
+  .comp-card ul li { font-size: 12.5px; color: rgba(255,255,255,0.8); padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.07); line-height: 1.4; }
+  .comp-card ul li:last-child { border-bottom: none; }
+  .eval-section { background: white; padding: 60px; }
+  .eval-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 26px; color: var(--cobalt); margin-bottom: 8px; }
+  .eval-section .intro { color: var(--graphite); font-size: 14px; margin-bottom: 36px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { background: var(--cobalt); color: white; text-align: left; padding: 12px 16px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+  td { padding: 12px 16px; border-bottom: 1px solid #EBEBEB; vertical-align: top; color: var(--graphite); line-height: 1.5; }
+  tr:nth-child(even) td { background: #FAFAFA; }
+  .badge-inline { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; color: white; }
+  .biblio { padding: 60px; background: var(--mist); border-top: 2px solid var(--border); }
+  .biblio h2 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: var(--cobalt); margin-bottom: 28px; }
+  .biblio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .biblio-item { background: white; border-radius: 8px; padding: 16px 20px; border-left: 3px solid var(--amber); font-size: 13px; line-height: 1.6; color: var(--graphite); }
+  .biblio-item strong { color: var(--ink); display: block; margin-bottom: 4px; }
+  .biblio-cat { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 700; margin-bottom: 16px; }
+  footer { background: var(--ink); color: rgba(255,255,255,0.5); text-align: center; padding: 28px; font-size: 12px; letter-spacing: 0.5px; }
+  footer span { color: var(--amber); }
+  .progress-container { background: white; padding: 40px 60px; border-bottom: 1px solid var(--border); }
+  .progress-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; color: var(--cobalt); margin-bottom: 20px; }
+  .progress-track { display: flex; align-items: center; gap: 0; }
+  .prog-node { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+  .prog-dot { width: 36px; height: 36px; border-radius: 50%; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+  .prog-line { position: absolute; top: 18px; left: 50%; width: 100%; height: 3px; z-index: 0; }
+  .prog-text { font-size: 11px; text-align: center; margin-top: 8px; line-height: 1.3; color: var(--graphite); max-width: 100px; }
+  .prog-text strong { display: block; color: var(--ink); font-size: 12px; }
+  @media (max-width: 768px) {
+    .hero { padding: 48px 24px 40px; }
+    .framework, .competency-map, .eval-section, .biblio { padding: 40px 24px; }
+    .program-body { padding: 40px 20px; }
+    .module-header { flex-wrap: wrap; padding: 20px; gap: 16px; }
+    .module-body { padding: 0 20px; }
+    .module-grid { grid-template-columns: 1fr; gap: 20px; }
+    .module-stats { display: none; }
+    .progress-container { padding: 32px 24px; }
+    .prog-text { display: none; }
+    .hero h1 { font-size: 32px; }
+    .module-title { font-size: 18px; }
+  }
+  @media print { .module-body { display: block !important; max-height: none !important; opacity: 1 !important; } }
 </style>
 </head>
 <body>
 
-<button class="menu-toggle" id="menuToggle">☰</button>
-<div id="overlay"></div>
-
-<!-- SIDEBAR -->
-<nav id="sidebar">
-  <div class="sidebar-brand">
-    <div class="brand-eyebrow">Programa de Formación</div>
-    <div class="brand-title">Entrevista Motivacional:<br>De Aprendiz a Experto</div>
+<header class="hero">
+  <div class="hero-eyebrow">Programa de Formación Especializada · Psicología Clínica</div>
+  <h1>Entrevista Motivacional:<br><em>De Aprendiz a Experto</em></h1>
+  <p class="hero-desc">Programa modular basado en Miller & Rollnick (3.ª ed.), estándares MINT y evaluación de fidelidad MITI 4.2.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><span class="meta-label">Módulos</span><span class="meta-value">5 Niveles</span></div>
+    <div class="meta-item"><span class="meta-label">Horas</span><span class="meta-value">160 h</span></div>
+    <div class="meta-item"><span class="meta-label">Modalidad</span><span class="meta-value">Teórico-práctica</span></div>
+    <div class="meta-item"><span class="meta-label">Evidencia</span><span class="meta-value">MINT · MITI 4.2</span></div>
   </div>
+</header>
 
-  <div class="sidebar-progress">
-    <div class="prog-label">Progreso general</div>
-    <div class="prog-bar-track"><div class="prog-bar-fill" id="globalProgBar" style="width:0%"></div></div>
-    <div class="prog-text"><span id="globalProgText">0</span> de 20 unidades completadas</div>
-  </div>
-
-  <div class="sidebar-nav" id="sidebarNav">
-    <!-- JS generado -->
-  </div>
-</nav>
-
-<!-- MAIN -->
-<div id="main">
-  <div class="topbar">
-    <div class="topbar-breadcrumb" id="breadcrumb">
-      <span>Programa EM</span> <span>›</span> <strong>Selecciona un módulo</strong>
-    </div>
-    <div class="topbar-actions">
-      <button class="btn btn-ghost" onclick="navigate(-1)">← Anterior</button>
-      <button class="btn btn-primary" onclick="navigate(1)">Siguiente →</button>
-    </div>
-  </div>
-
-  <div id="content">
-    <!-- Pantalla de bienvenida -->
-    <div id="welcomeScreen">
-      <div class="module-cover">
-        <div class="cover-eyebrow">Plataforma Interactiva · MINT · MITI 4.2</div>
-        <div class="cover-title">Bienvenido al Programa de<br>Entrevista Motivacional</div>
-        <div class="cover-desc">Formación académica de nivel posgrado para psicólogos clínicos y formadores. Basado en Miller & Rollnick (2012, 3.ª ed.) con estándares internacionales MINT y codificación MITI 4.2.</div>
-        <div class="cover-stats">
-          <div class="cstat"><div class="cstat-val">5</div><div class="cstat-lbl">Módulos</div></div>
-          <div class="cstat"><div class="cstat-val">160h</div><div class="cstat-lbl">Académicas</div></div>
-          <div class="cstat"><div class="cstat-val">20</div><div class="cstat-lbl">Unidades</div></div>
-          <div class="cstat"><div class="cstat-val">MITI 4.2</div><div class="cstat-lbl">Estándar</div></div>
-        </div>
-      </div>
-      <p style="color:var(--graphite);font-size:15px">Selecciona <strong>Módulo 1</strong> en el panel lateral para comenzar la formación. Los módulos 2–5 se desbloquean progresivamente.</p>
-    </div>
-
-    <!-- Contenido dinámico -->
-    <div id="dynamicContent" style="display:none"></div>
+<div class="progress-container">
+  <div class="progress-label">Trayectoria de formación</div>
+  <div class="progress-track">
+    <div class="prog-node"><div class="prog-dot" style="background:var(--m1)">M1</div><div class="prog-line" style="background:linear-gradient(90deg,var(--m1),var(--m2))"></div><div class="prog-text"><strong>Fundamentos</strong>Aprendiz</div></div>
+    <div class="prog-node"><div class="prog-dot" style="background:var(--m2)">M2</div><div class="prog-line" style="background:linear-gradient(90deg,var(--m2),var(--m3))"></div><div class="prog-text"><strong>Habilidades</strong>Iniciado</div></div>
+    <div class="prog-node"><div class="prog-dot" style="background:var(--m3)">M3</div><div class="prog-line" style="background:linear-gradient(90deg,var(--m3),var(--m4))"></div><div class="prog-text"><strong>Procesos</strong>Competente</div></div>
+    <div class="prog-node"><div class="prog-dot" style="background:var(--m4)">M4</div><div class="prog-line" style="background:linear-gradient(90deg,var(--m4),var(--m5))"></div><div class="prog-text"><strong>Clínica</strong>Avanzado</div></div>
+    <div class="prog-node"><div class="prog-dot" style="background:var(--m5)">M5</div><div class="prog-line" style="background:transparent"></div><div class="prog-text"><strong>Supervisión</strong>Experto</div></div>
   </div>
 </div>
 
-<script>
-// ============================================================
-// DATOS DEL PROGRAMA - 5 MÓDULOS COMPLETOS (TODOS DESBLOQUEADOS)
-// ============================================================
+<section class="framework">
+  <div class="section-label">Base epistemológica</div>
+  <h2>Fundamentos conceptuales del programa</h2>
+  <p style="color:var(--graphite);max-width:720px;font-size:14.5px;line-height:1.7">La Entrevista Motivacional (EM) es un estilo de comunicación colaborativo, orientado a la meta, con particular atención al lenguaje del cambio. La formación integra el espíritu, los procesos y las habilidades como ejes vertebradores.</p>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-num">Pilar 01</div><h4>Espíritu PACE</h4><p>Asociación, Aceptación, Compasión y Evocación como actitudes clínicas fundamentales.</p></div>
+    <div class="pillar"><div class="pillar-num">Pilar 02</div><h4>Modelo Transteórico</h4><p>Prochaska & DiClemente: fases de cambio como contexto diagnóstico.</p></div>
+    <div class="pillar"><div class="pillar-num">Pilar 03</div><h4>Cuatro Procesos</h4><p>Vincular, Enfocar, Evocar y Planificar como secuencia clínica flexible.</p></div>
+    <div class="pillar"><div class="pillar-num">Pilar 04</div><h4>Neurociencia</h4><p>Regulación prefrontal y activación dopaminérgica en la motivación.</p></div>
+    <div class="pillar"><div class="pillar-num">Pilar 05</div><h4>Fidelidad MITI</h4><p>Motivational Interviewing Treatment Integrity como estándar de evaluación.</p></div>
+  </div>
+</section>
 
-var MODULES = [
-  {
-    id: 'M1',
-    color: '#1B2B6B',
-    title: 'Bases Teóricas y Espíritu de la EM',
-    level: 'Nivel Aprendiz · Fundamentos epistemológicos',
-    hours: 32,
-    unlocked: true,
-    units: [
-      { id: '1.1', title: 'Historia y desarrollo de la EM', subtitle: 'Del Drinker Project (1983) a la 3.ª edición (2012)', done: false, content: '<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.1</div><div class="unit-title">Historia y desarrollo de la Entrevista Motivacional</div><div class="unit-intro">La EM no emergió de una teoría a priori, sino de la observación clínica sistemática de qué conductas del terapeuta producían cambio en pacientes con problemas de alcohol.</div></div><div class="content-block"><div class="block-label">Origen y contexto histórico</div><p>Descrita por <strong>William R. Miller</strong> en 1983. El hallazgo fundacional fue que la confrontación aumentaba la resistencia, mientras que un estilo empático y evocador generaba más discurso de cambio.</p><div class="key-concept"><div class="kc-label">Hallazgo fundacional</div>Miller et al. (1988): los terapeutas con mayor empatía reflexiva lograban mejores resultados que los confrontativos.</div></div><div class="evidence-box"><div class="ev-label">📚 Referencias clave</div><div class="ev-item">Miller, W. R., & Rollnick, S. (2013). <em>Motivational interviewing: Helping people change</em> (3rd ed.). Guilford Press.</div></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">¿Qué implicación clínica tiene el hallazgo de que la confrontación aumenta la resistencia?</div><textarea class="refl-textarea" placeholder="Escribe tu reflexión..."></textarea></div>' },
-      { id: '1.2', title: 'Espíritu de la EM: PACE', subtitle: 'Colaboración, Aceptación, Compasión y Evocación', done: false, content: '<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.2</div><div class="unit-title">El espíritu de la Entrevista Motivacional: PACE</div><div class="unit-intro">El espíritu no es un adorno; es la condición de posibilidad de la técnica. Sin él, las herramientas se vuelven vacías.</div></div><div class="content-block"><div class="block-label">Los cuatro pilares</div><ul class="content-list"><li><strong>Colaboración:</strong> trabajar con, no hacer a.</li><li><strong>Aceptación:</strong> respeto incondicional y validación.</li><li><strong>Compasión:</strong> búsqueda activa del bienestar del paciente.</li><li><strong>Evocación:</strong> extraer la motivación interna, no imponerla.</li></ul></div><div class="evidence-box"><div class="ev-label">📚 Referencias clave</div><div class="ev-item">Miller & Rollnick (2013). Capítulo 2: El espíritu de la EM.</div></div><div class="reflection-box"><div class="refl-label">✍️ Actividad</div><div class="refl-question">Redacta un diálogo breve donde se note colaboración sin imposición.</div><textarea class="refl-textarea" placeholder="Escribe tu diálogo..."></textarea></div>' },
-      { id: '1.3', title: 'OARS avanzadas', subtitle: 'Preguntas abiertas, afirmaciones, reflejos y resúmenes', done: false, content: '<div class="unit-header"><div class="unit-eyebrow">Módulo 1 · Unidad 1.3</div><div class="unit-title">OARS avanzadas: microhabilidades de la EM</div><div class="unit-intro">Las OARS son la base de la comunicación en EM. En nivel avanzado, su valor depende de la intención clínica y el momento.</div></div><div class="content-block"><div class="block-label">Microhabilidades en nivel avanzado</div><table class="data-table"><thead><tr><th>Habilidad</th><th>Uso básico</th><th>Uso avanzado</th></tr></thead><tbody><tr><td><strong>Preguntas abiertas</strong></td><td>Invitan a hablar</td><td>Exploran valores y discrepancias</td></tr><tr><td><strong>Afir
+<main class="program-body">
+  <div class="program-header">
+    <div class="section-label">Estructura curricular</div>
+    <h2>Cinco módulos de formación progresiva</h2>
+    <p>La transición entre niveles requiere evaluación de competencias certificada mediante codificación MITI.</p>
+  </div>
+
+  <!-- M1 -->
+  <div class="module m1">
+    <div class="module-header">
+      <div class="module-badge">M1</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Aprendiz · Fundamentos epistemológicos</div>
+        <div class="module-title">Bases Teóricas y Espíritu de la EM</div>
+        <div class="module-subtitle">Qué es la EM, qué no es, y por qué funciona</div>
+      </div>
+      <div class="module-stats"><div class="stat"><div class="stat-val">32</div><div class="stat-lbl">Horas</div></div><div class="stat"><div class="stat-val">8</div><div class="stat-lbl">Unidades</div></div></div>
+    </div>
+    <div class="module-body">
+      <div class="module-grid">
+        <div>
+          <div class="col-label">Contenidos</div>
+          <ul class="unit-list">
+            <li><span class="unit-num">1.1</span>Historia y desarrollo (Miller 1983, Rollnick)</li>
+            <li><span class="unit-num">1.2</span>Diferenciación conceptual (No es confrontación ni terapia no directiva pura)</li>
+            <li><span class="unit-num">1.3</span>El espíritu PACE (Partnership, Acceptance, Compassion, Evocation)</li>
+            <li><span class="unit-num">1.4</span>Modelo Transteórico del Cambio (Precontemplación a Mantenimiento)</li>
+            <li><span class="unit-num">1.5</span>Neurociencia de la motivación y sistema de recompensa</li>
+            <li><span class="unit-num">1.6</span>Resistencia, discordancia y Sustain Talk</li>
+            <li><span class="unit-num">1.7</span>Meta-análisis y evidencia de eficacia (Rubak, Lundahl)</li>
+            <li><span class="unit-num">1.8</span>Ética en EM: Autonomía y no manipulación</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Competencias</div>
+          <ul class="comp-list">
+            <li><div>Comprender los fundamentos teóricos y el espíritu PACE.</div></li>
+            <li><div>Diferenciar la EM de otros enfoques de cambio conductual.</div></li>
+            <li><div>Identificar las fases del cambio y su implicación clínica.</div></li>
+          </ul>
+          <div class="eval-row"><span class="eval-label">Evaluación</span><div class="eval-tags"><span class="eval-tag">Examen teórico</span><span class="eval-tag">Análisis de caso</span></div></div>
+        </div>
+      </div>
+      <div class="evidence-strip"><strong>Evidencia base:</strong> Miller, W. R., & Rollnick, S. (2013). Motivational Interviewing: Helping People Change (3rd ed.). Guilford Press.</div>
+    </div>
+  </div>
+
+  <!-- M2 -->
+  <div class="module m2">
+    <div class="module-header">
+      <div class="module-badge">M2</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Iniciado · Habilidades técnicas</div>
+        <div class="module-title">Habilidades OARS en Profundidad</div>
+        <div class="module-subtitle">Preguntas abiertas, afirmaciones, reflejos y resúmenes</div>
+      </div>
+      <div class="module-stats"><div class="stat"><div class="stat-val">28</div><div class="stat-lbl">Horas</div></div><div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Unidades</div></div></div>
+    </div>
+    <div class="module-body">
+      <div class="module-grid">
+        <div>
+          <div class="col-label">Contenidos</div>
+          <ul class="unit-list">
+            <li><span class="unit-num">2.1</span>Preguntas abiertas estratégicas y evocadoras</li>
+            <li><span class="unit-num">2.2</span>Afirmaciones: reconocimiento de fortalezas y esfuerzos</li>
+            <li><span class="unit-num">2.3</span>Reflejos simples: repetición y paráfrasis</li>
+            <li><span class="unit-num">2.4</span>Reflejos complejos: amplificación, doble reflejo, sentimiento y significado</li>
+            <li><span class="unit-num">2.5</span>Resúmenes: recopilación, vinculación y transición</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Competencias</div>
+          <ul class="comp-list">
+            <li><div>Dominar las habilidades básicas OARS sin caer en el interrogatorio.</div></li>
+            <li><div>Formular reflejos complejos que profundicen el cambio.</div></li>
+            <li><div>Utilizar resúmenes para vincular y transicionar entre procesos.</div></li>
+          </ul>
+          <div class="eval-row"><span class="eval-label">Evaluación</span><div class="eval-tags"><span class="eval-tag">Grabación de sesión</span><span class="eval-tag">Codificación MITI</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M3 -->
+  <div class="module m3">
+    <div class="module-header">
+      <div class="module-badge">M3</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Competente · Procesos clínicos</div>
+        <div class="module-title">Los Cuatro Procesos de la EM</div>
+        <div class="module-subtitle">Vincular, Enfocar, Evocar y Planificar</div>
+      </div>
+      <div class="module-stats"><div class="stat"><div class="stat-val">36</div><div class="stat-lbl">Horas</div></div><div class="stat"><div class="stat-val">6</div><div class="stat-lbl">Unidades</div></div></div>
+    </div>
+    <div class="module-body">
+      <div class="module-grid">
+        <div>
+          <div class="col-label">Contenidos</div>
+          <ul class="unit-list">
+            <li><span class="unit-num">3.1</span>Proceso de Vincular (Engaging): Construir la alianza terapéutica</li>
+            <li><span class="unit-num">3.2</span>Proceso de Enfocar (Focusing): Agenda compartida y mapa de metas</li>
+            <li><span class="unit-num">3.3</span>Proceso de Evocar (Evoking): Elicitar Change Talk (DARN-CAT)</li>
+            <li><span class="unit-num">3.4</span>Proceso de Planificar (Planning): Transición al cambio y plan concreto</li>
+            <li><span class="unit-num">3.5</span>Manejo estratégico del Sustain Talk y la discordancia</li>
+            <li><span class="unit-num">3.6</span>Integración y flexibilidad: los procesos no son estrictamente lineales</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Competencias</div>
+          <ul class="comp-list">
+            <li><div>Navegar fluidamente entre los cuatro procesos según la etapa del cliente.</div></li>
+            <li><div>Evocar y fortalecer el Change Talk (Deseo, Habilidad, Razones, Necesidad, Compromiso).</div></li>
+            <li><div>Responder estratégicamente al Sustain Talk sin generar resistencia.</div></li>
+          </ul>
+          <div class="eval-row"><span class="eval-label">Evaluación</span><div class="eval-tags"><span class="eval-tag">Caso clínico completo</span><span class="eval-tag">Supervisión grupal</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M4 -->
+  <div class="module m4">
+    <div class="module-header">
+      <div class="module-badge">M4</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Avanzado · Poblaciones específicas</div>
+        <div class="module-title">EM en Contextos Clínicos Especializados</div>
+        <div class="module-subtitle">Adaptaciones para diferentes poblaciones y contextos</div>
+      </div>
+      <div class="module-stats"><div class="stat"><div class="stat-val">36</div><div class="stat-lbl">Horas</div></div><div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Unidades</div></div></div>
+    </div>
+    <div class="module-body">
+      <div class="module-grid">
+        <div>
+          <div class="col-label">Contenidos</div>
+          <ul class="unit-list">
+            <li><span class="unit-num">4.1</span>EM con adolescentes: tono, rol de los padres y autonomía</li>
+            <li><span class="unit-num">4.2</span>EM en atención primaria: intervenciones breves (15-20 min)</li>
+            <li><span class="unit-num">4.3</span>EM en salud mental y psiquiatría: comorbilidad y medicación</li>
+            <li><span class="unit-num">4.4</span>Integración con TCC y otras intervenciones basadas en evidencia</li>
+            <li><span class="unit-num">4.5</span>EM en contextos forenses y mandatos judiciales</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Competencias</div>
+          <ul class="comp-list">
+            <li><div>Adaptar el tono y la estructura de la EM a diferentes contextos clínicos.</div></li>
+            <li><div>Integrar la EM con otras intervenciones (TCC, reducción de daños).</div></li>
+            <li><div>Trabajar con poblaciones específicas manteniendo el espíritu PACE.</div></li>
+          </ul>
+          <div class="eval-row"><span class="eval-label">Evaluación</span><div class="eval-tags"><span class="eval-tag">Proyecto de aplicación</span><span class="eval-tag">Presentación de caso</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M5 -->
+  <div class="module m5">
+    <div class="module-header">
+      <div class="module-badge">M5</div>
+      <div class="module-meta">
+        <div class="module-level">Nivel: Experto · Supervisión y formación</div>
+        <div class="module-title">Supervisión, Formación de Formadores y Práctica Experta</div>
+        <div class="module-subtitle">Desarrollo de la maestría clínica y supervisión</div>
+      </div>
+      <div class="module-stats"><div class="stat"><div class="stat-val">28</div><div class="stat-lbl">Horas</div></div><div class="stat"><div class="stat-val">4</div><div class="stat-lbl">Unidades</div></div></div>
+    </div>
+    <div class="module-body">
+      <div class="module-grid">
+        <div>
+          <div class="col-label">Contenidos</div>
+          <ul class="unit-list">
+            <li><span class="unit-num">5.1</span>Evaluación de fidelidad: Código MITI 4.2.1 (Global scores y behavior counts)</li>
+            <li><span class="unit-num">5.2</span>Supervisión clínica y coaching: retroalimentación basada en MITI</li>
+            <li><span class="unit-num">5.3</span>Evaluación de competencia y certificación (Estándares MINT)</li>
+            <li><span class="unit-num">5.4</span>Implementación organizacional y sostenibilidad de la EM</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Competencias</div>
+          <ul class="comp-list">
+            <li><div>Alcanzar competencia en codificación MITI (Global ≥ 4.0).</div></li>
+            <li><div>Supervisar a otros profesionales utilizando retroalimentación basada en evidencia.</div></li>
+            <li><div>Implementar y sostener la EM en contextos organizacionales.</div></li>
+          </ul>
+          <div class="eval-row"><span class="eval-label">Evaluación</span><div class="eval-tags"><span class="eval-tag">Certificación MITI</span><span class="eval-tag">Portafolio clínico</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="competency-map">
+  <div class="section-label">Matriz de competencias</div>
+  <h2>Progresión de habilidades por nivel</h2>
+  <p class="intro">Cada módulo desarrolla competencias específicas evaluadas mediante estándares MINT y codificación MITI 4.2.</p>
+  <div class="comp-matrix">
+    <div class="comp-card"><h4>M1: Fundamentos</h4><ul><li>Comprensión teórica</li><li>Espíritu PACE</li><li>Modelo transteórico</li><li>Ética profesional</li></ul></div>
+    <div class="comp-card"><h4>M2: Habilidades</h4><ul><li>OARS básico</li><li>Reflejos complejos</li><li>Escucha reflexiva</li><li>Práctica deliberada</li></ul></div>
+    <div class="comp-card"><h4>M3: Procesos</h4><ul><li>Cuatro procesos</li><li>Change Talk (DARN-CAT)</li><li>Manejo de resistencia</li><li>Planificación</li></ul></div>
+    <div class="comp-card"><h4>M4: Especialización</h4><ul><li>Adaptaciones clínicas</li><li>Poblaciones específicas</li><li>Integración TCC</li><li>Contextos diversos</li></ul></div>
+    <div class="comp-card"><h4>M5: Maestría</h4><ul><li>Codificación MITI</li><li>Supervisión clínica</li><li>Formación de formadores</li><li>Implementación</li></ul></div>
+  </div>
+</section>
+
+<section class="eval-section">
+  <div class="section-label">Sistema de evaluación</div>
+  <h2>Criterios de certificación por módulo</h2>
+  <p class="intro">Evaluación formativa y sumativa basada en estándares internacionales MINT.</p>
+  <table>
+    <thead><tr><th>Módulo</th><th>Instrumento</th><th>Criterio de aprobación</th><th>Ponderación</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge-inline" style="background:var(--m1)">M1</span></td><td>Examen teórico + Análisis de caso</td><td>≥80% en evaluación teórica</td><td>20%</td></tr>
+      <tr><td><span class="badge-inline" style="background:var(--m2)">M2</span></td><td>Grabación de sesión (20 min)</td><td>Codificación MITI: Espíritu ≥3.5</td><td>25%</td></tr>
+      <tr><td><span class="badge-inline" style="background:var(--m3)">M3</span></td><td>Caso clínico completo + Supervisión</td><td>MITI: Global ≥4.0</td><td>30%</td></tr>
+      <tr><td><span class="badge-inline" style="background:var(--m4)">M4</span></td><td>Proyecto de aplicación</td><td>Presentación y defensa</td><td>15%</td></tr>
+      <tr><td><span class="badge-inline" style="background:var(--m5)">M5</span></td><td>Portafolio + Certificación MITI</td><td>Competencia en codificación</td><td>10%</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="biblio">
+  <div class="biblio-cat">Referencias académicas</div>
+  <h2>Bibliografía fundamental</h2>
+  <div class="biblio-grid">
+    <div class="biblio-item"><strong>Miller, W. R., & Rollnick, S. (2013)</strong>Motivational Interviewing: Helping People Change (3rd ed.). Guilford Press.</div>
+    <div class="biblio-item"><strong>Miller, W. R., & Rollnick, S. (2002)</strong>Motivational Interviewing: Preparing People for Change (2nd ed.). Guilford Press.</div>
+    <div class="biblio-item"><strong>Prochaska, J. O., & DiClemente, C. C. (1983)</strong>Stages and processes of self-change of smoking. Journal of Consulting and Clinical Psychology, 51, 390-395.</div>
+    <div class="biblio-item"><strong>Moyers, T. B., et al. (2016)</strong>The Motivational Interviewing Treatment Integrity Code (MITI 4). Journal of Substance Abuse Treatment.</div>
+    <div class="biblio-item"><strong>Rubak, S., et al. (2005)</strong>Motivational interviewing: a systematic review and meta-analysis. British Journal of General Practice, 55(513), 305-312.</div>
+    <div class="biblio-item"><strong>Lundahl, B. W., et al. (2013)</strong>A meta-analysis of motivational interviewing process. Journal of Consulting and Clinical Psychology.</div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Programa de Formación en Entrevista Motivacional · <span>De Aprendiz a Experto</span></p>
+  <p style="margin-top:8px;font-size:11px">Basado en Miller & Rollnick (3.ª ed.) · Estándares MINT · MITI 4.2</p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bodies = document.querySelectorAll('.module-body');
+    bodies.forEach(body => { body.style.maxHeight = '0'; body.style.opacity = '0'; body.style.paddingTop = '0'; body.style.paddingBottom = '0'; });
+
+    document.querySelectorAll('.module-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const body = header.nextElementSibling;
+        const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+        
+        bodies.forEach(b => { b.style.maxHeight = '0'; b.style.opacity = '0'; b.style.paddingTop = '0'; b.style.paddingBottom = '0'; });
+        
+        if (!isOpen) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          body.style.opacity = '1';
+          body.style.paddingTop = '32px';
+          body.style.paddingBottom = '32px';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
